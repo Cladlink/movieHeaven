@@ -14,7 +14,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-.idea/vcs.xml
+!.idea/vcs.xml
 .idea/*
 Supprimerait vcs.xml
 Supprimerait .gitignore
@@ -29,3 +29,7 @@ Supprimerait tests/
 Supprimerait var/
 Supprimerait web/
 Supprimerait composer.phar
+Supprimerait web/css/bootstrap-responsive.css
+Supprimerait web/css/bootstrap-responsive.min.css
+Supprimerait web/js/bootstrap.min.js
+Supprimerait web/js/jquery-3.1.1.min.js
