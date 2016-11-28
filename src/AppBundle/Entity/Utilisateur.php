@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints as CaptchaAssert;
 
 /**
  * @ORM\Entity
@@ -79,6 +80,13 @@ class Utilisateur implements  UserInterface
      */
     private $roles = [];
 
+    /**
+     * @CaptchaAssert\ValidCaptcha(
+     *      message = "CAPTCHA validation failed, try again."
+     * )
+     */
+    protected $captchaCode;
+
     public function __construct()
     {
         $this->uniqueKeyUtilisateur = uniqid();
@@ -132,4 +140,8 @@ class Utilisateur implements  UserInterface
         $this->passwordUser = null;
     }
     public function eraseCredentials() { $this->plainPassword = null; }
+
+    // captcha
+    public function getCaptchaCode() { return $this->captchaCode; }
+    public function setCaptchaCode($captchaCode) { $this->captchaCode = $captchaCode; }
 }

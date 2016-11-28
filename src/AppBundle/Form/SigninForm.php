@@ -21,6 +21,9 @@ class SigninForm extends AbstractType
             ->add('adresseUtilisateur')
             ->add('villeUtilisateur')
             ->add('codePostalUtilisateur')
+            ->add('captchaCode', 'Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType', array(
+                'captchaConfig' => 'ExampleCaptcha'
+            ));
         ;
     }
 
