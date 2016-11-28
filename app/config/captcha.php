@@ -9,5 +9,4 @@ return [
         'ImageWidth' => 250,
         'ImageHeight' => 50,
     ],
-
 ];

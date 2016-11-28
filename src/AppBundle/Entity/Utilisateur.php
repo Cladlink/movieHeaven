@@ -134,6 +134,7 @@ class Utilisateur implements  UserInterface
     public function getPlainPassword() { return $this->plainPassword; }
     public function setPlainPassword($plainPassword)
     {
+
         $this->plainPassword = $plainPassword;
         // guarentees that the entity looks "dirty" to doctrine
         // when changing the plainPassword
