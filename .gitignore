@@ -14,7 +14,9 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-.idea
+.idea/vcs.xml
+.idea/*
+Supprimerait vcs.xml
 Supprimerait .gitignore
 Supprimerait README.md
 Supprimerait app/
