@@ -25,6 +25,9 @@ class Utilisateur implements  UserInterface
      * @ORM\Column(type="string", name="password")
      */
     private $password;
+    /**
+     * @Assert\NotBlank()
+     */
     private $plainPassword;
 
     /**
