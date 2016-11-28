@@ -1,0 +1,22 @@
+    {% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Inscription</h1>
+
+                {{ form_start(form) }}
+                    {{ form_row(form.emailUtilisateur) }}
+                    {{ form_row(form.plainPassword.first) }}
+                    {{ form_row(form.plainPassword.second) }}
+                    {{ form_row(form.nomUtilisateur) }}
+                    {{ form_row(form.prenomUtilisateur) }}
+                    {{ form_row(form.adresseUtilisateur) }}
+                    {{ form_row(form.villeUtilisateur) }}
+                    {{ form_row(form.codePostalUtilisateur) }}
+                    <button type="submit" class="btn btn-success" formnovalidate>Login <span class="fa fa-lock"></span></button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
