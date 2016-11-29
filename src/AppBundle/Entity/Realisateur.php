@@ -31,6 +31,12 @@ class Realisateur
      */
     private $nomRealisateur;
 
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", name="prenomRealisateur")
+     */
+    private $prenomRealisateur;
+
 
     public function __toString()
     {
@@ -43,6 +49,9 @@ class Realisateur
     public function getIdRealisateur() { return $this->idRealisateur; }
     public function getNomRealisateur() { return $this->nomRealisateur; }
     public function setNomRealisateur($nomRealisateur) { $this->nomRealisateur = $nomRealisateur; }
+    public function getPrenomRealisateur() { return $this->prenomRealisateur; }
+    public function setPrenomRealisateur($prenomRealisateur) { $this->prenomRealisateur = $prenomRealisateur; }
+
 
 
 }

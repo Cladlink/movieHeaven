@@ -11,6 +11,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,7 +28,7 @@ class addFilmForm extends AbstractType
             ])
             ->add('prixFilm')
             ->add('quantiteFilm')
-            ->add('imageFilm')
+            ->add('imageFilm', FileType::class)
             ->add('typeFilmId')
             ->add('realisateurId');
 

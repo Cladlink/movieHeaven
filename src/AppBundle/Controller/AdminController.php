@@ -8,11 +8,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Film;
 use AppBundle\Form\addFilmForm;
 use AppBundle\Form\addRealisateurForm;
 use AppBundle\Form\addTypeFilmForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends Controller
@@ -66,8 +68,21 @@ class AdminController extends Controller
 
         if($form->isSubmitted() && $form->isValid())
         {
+            /**
+             * @var Film $film
+             */
             $film = $form->getData();
 
+            /**
+             * @var UploadedFile $file
+             */
+            $file = $film->getImageFilm();
+            $fileName = $film->getTitreFilm().'.'.$file->guessExtension();
+            $file->move(
+                $this->getParameter('images_directory'),
+                $fileName
+            );
+            $film->setImageFilm($fileName);
             $em = $this->getDoctrine()->getManager();
             $em->persist($film);
             $em->flush();
@@ -114,7 +129,9 @@ class AdminController extends Controller
 
         if($form->isSubmitted() && $form->isValid())
         {
+
             $type = $form->getData();
+            /** @var UploadedFile $file */
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($type);

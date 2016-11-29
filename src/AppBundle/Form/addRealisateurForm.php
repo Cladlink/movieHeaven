@@ -17,7 +17,8 @@ class addRealisateurForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomRealisateur');
+            ->add('nomRealisateur')
+            ->add('prenomRealisateur');
     }
 
     public function configureOptions(OptionsResolver $resolver)
