@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Gestion des films</h2>
+                <a href="{{ path('ajouterNouveauFilm') }}"><img width="90px" src="{{ asset('images/ajouter.png') }}"></a> <br>
+                <table cellspacing="60">
+                    <caption>Liste des films</caption>
+                    <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Titre</th>
+                        <th>Durée</th>
+                        <th>Date de sortie</th>
+                        <th>Prix</th>
+                        <th>Quantité disponible</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for film in contenu if contenu is not empty %}
+
+                        <tr>
+                            <td><img width="60px" src="{{ asset(film.imageFilm) }}"> </td>
+                            <td>{{film.titreFilm}}</td>
+                            <td>{{film.dureeFilm}}</td>
+                            <td>{{film.dateFilm|date('Y-m-d')}}</td>
+                            <td>{{film.prixFilm}}</td>
+                            <td>{{film.quantiteFilm}}</td>
+                            <td><a href="{{ path('ajouterProduitPanier', {film: film.id}) }}"><img width="50px" src="{{ asset('images/supprimer.png') }}" alt="Supprimer"></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <button>Valider la commande</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
