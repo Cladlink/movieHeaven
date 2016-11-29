@@ -32,6 +32,11 @@ class TypeFilm
      */
     private $libelleTypeFilm;
 
+    public function __toString()
+    {
+        return $this->libelleTypeFilm;
+    }
+
     /**
      * getters and setters
      */

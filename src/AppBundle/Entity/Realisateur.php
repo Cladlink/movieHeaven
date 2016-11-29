@@ -31,6 +31,12 @@ class Realisateur
      */
     private $nomRealisateur;
 
+
+    public function __toString()
+    {
+        return $this->nomRealisateur;
+    }
+
     /**
      * getters and setters
      */

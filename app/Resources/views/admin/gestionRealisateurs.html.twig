@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Gestion des réalisateurs</h2>
+                <a href="{{ path('ajouterNouveauRealisateur') }}"><img width="90px" src="{{ asset('images/ajouter.png') }}"></a> <br>
+                <table cellspacing="60">
+                    <caption>Liste des types</caption>
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for realisateur in realisateurs if realisateurs is not empty %}
+
+                        <tr>
+                            <td>{{realisateur.nomRealisateur}}</td>
+                            {#<td><a href="{{ path('ajouterProduitPanier', {film: film.id}) }}"><img width="50px" src="{{ asset('images/addCart.png') }}" alt="Ajouter"></a></td>#}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -36,7 +36,6 @@ class Film
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Count(min = "0", minMessage="Veuillez saisir une durée positive.")
      * @ORM\Column(type="integer", name="dureeFilm")
      */
     private $dureeFilm;
@@ -49,7 +48,6 @@ class Film
     private $dateFilm;
 
     /**
-     * @Assert\Count(min="0", minMessage="Un prix doit être positif")
      * @Assert\NotBlank()
      * @ORM\Column(type="float", scale=2, name="prixFilm")
      */
@@ -57,7 +55,6 @@ class Film
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Count(min="0", minMessage="La valeur saisie doit être positive")
      * @ORM\Column(type="integer", name="quantiteFilm")
      */
     private $quantiteFilm;

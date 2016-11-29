@@ -8,8 +8,124 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\addFilmForm;
+use AppBundle\Form\addRealisateurForm;
+use AppBundle\Form\addTypeFilmForm;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
-class AdminController
+class AdminController extends Controller
 {
+    /**
+     * @Route("/admin", name="gestion")
+     */
+    public function accueilGestion()
+    {
+        return $this->render('admin/accueilGestion.html.twig');
+    }
+
+    /**
+     * @Route("/admin/gestionFilms", name="gestionFilms")
+     */
+    public function gestionFilms()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $films = $em->getRepository('AppBundle:Film')->findAll();
+        return $this->render('admin/gestionFilms.html.twig', (['films' => $films]));
+    }
+
+    /**
+     * @Route("/admin/gestionRealisateurs", name="gestionRealisateurs")
+     */
+    public function gestionRealisateur()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $realisateurs = $em->getRepository('AppBundle:Realisateur')->findAll();
+        return $this->render('admin/gestionRealisateurs.html.twig', (['realisateurs' => $realisateurs]));
+    }
+
+    /**
+     * @Route("/admin/gestionTypesFilm", name="gestionTypesFilm")
+     */
+    public function gestionTypesFilm()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $types = $em->getRepository('AppBundle:TypeFilm')->findAll();
+        return $this->render('admin/gestionTypesFilm.html.twig', (['types' => $types]));
+    }
+
+    /**
+     * @Route("/admin/nouveauFilm", name="ajouterNouveauFilm")
+     */
+    public function nouveauFilm(Request $request)
+    {
+        $form = $this->createForm(addFilmForm::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $film = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($film);
+            $em->flush();
+
+            return $this->redirectToRoute('gestionFilms');
+        }
+        return $this->render('admin/addNouveauFilm.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/nouveauRealisateur", name="ajouterNouveauRealisateur")
+     */
+    public function nouveauRealisateur(Request $request)
+    {
+        $form = $this->createForm(addRealisateurForm::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $realisateur = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($realisateur);
+            $em->flush();
+
+            return $this->redirectToRoute('gestionRealisateurs');
+        }
+        return $this->render('admin/addNouveauRealisateur.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/nouveauTypeFilm", name="ajouterNouveauType")
+     */
+    public function nouveauType(Request $request)
+    {
+        $form = $this->createForm(addTypeFilmForm::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $type = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($type);
+            $em->flush();
+
+            return $this->redirectToRoute('gestionTypesFilm');
+        }
+        return $this->render('admin/addNouveauTypeFilm.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
 
 }
