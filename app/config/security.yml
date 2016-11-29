@@ -33,3 +33,4 @@ security:
     access_control:
         - { path: ^/cart, roles: ROLE_ADMIN }
         - { path: ^/cart, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
