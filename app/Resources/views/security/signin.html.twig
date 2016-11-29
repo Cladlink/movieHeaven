@@ -4,7 +4,6 @@
         <div class="row">
             <div class="col-xs-12">
                 <h1>Inscription</h1>
-
                 {{ form_start(form) }}
                     {{ form_row(form.emailUtilisateur, { 'label': 'E-Mail' }) }}
                     {{ form_row(form.plainPassword.first, { 'label': 'Mot de passe' }) }}
@@ -14,7 +13,8 @@
                     {{ form_row(form.adresseUtilisateur, { 'label': 'Adresse' }) }}
                     {{ form_row(form.codePostalUtilisateur, { 'label': 'Code Postal' }) }}
                     {{ form_row(form.villeUtilisateur, { 'label': 'Ville' }) }}
-                    <button type="submit" class="btn btn-success" formnovalidate>Login <span class="fa fa-lock"></span></button>
+                    {{ form_row(form.captchaCode) }}
+                    <button type="submit" class="btn btn-success" formnovalidate>S'inscrire <span class="fa fa-lock"></span></button>
                 {{ form_end(form) }}
             </div>
         </div>
