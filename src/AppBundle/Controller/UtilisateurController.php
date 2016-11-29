@@ -54,7 +54,7 @@ class UtilisateurController extends Controller
             /** @var Utilisateur $user */
             $user = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_ADMIN']);
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'Welcome'.$user->getEmailUtilisateur());
@@ -68,6 +68,37 @@ class UtilisateurController extends Controller
         }
         return $this->render(
             'security/signin.html.twig',
+            array(
+                'form' => $form->createView()
+            )
+        );
+    }
+    /**
+     * @Route("/accountManager/{idUtilisateur}/edit", name="gestionCompte")
+     */
+    public function editLoginAction(Request $request, Utilisateur $utilisateur)
+    {
+        $form = $this->createForm(SigninForm::class, $utilisateur);
+        // only handles data on POST
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            /** @var Utilisateur $user */
+            $user = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success', 'Compte mis à jour!');
+            return $this->get('security.authentication.guard_handler')
+                ->authenticateUserAndHandleSuccess(
+                    $user,
+                    $request,
+                    $this->get('app.security.login_form_authenticator'),
+                    'main');
+        }
+        return $this->render(
+            ':users:editProfile.html.twig',
             array(
                 'form' => $form->createView()
             )

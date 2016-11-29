@@ -45,7 +45,8 @@ body {
     border-bottom: 6px solid transparent;
     top: 11px;
 }
-.header, .navi, .sea-creature-container, .genus-details, .notes-container, .footer {
+
+.header, .navi, .sea-creature-container, .genus-details, .notes-container, .footer{
     display: -webkit-flex;
     display: flex;
     margin-right: 0;
@@ -74,6 +75,7 @@ body {
 .navi a {
     margin-right: 20px;
 }
+
 .main-content {
     min-height: 300px;
 }

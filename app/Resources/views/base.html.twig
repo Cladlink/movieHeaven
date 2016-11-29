@@ -10,67 +10,69 @@
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
     </head>
+
     <body>
-    <div class="search-bar">
-        <form method="GET" action="" class="js-sea-search sea-search">
-            <input type="search" name="q" placeholder="Recherche" autocomplete="off" class="search-input">
-        </form>
-    </div>
-    <header class="header">
-        <img class="logo-icon" src="{{ asset('images/logo.png') }}">
-        <h1 class="logo"><a href="{{ path('home') }}">Movie Shop</a></h1>
-        <ul class="nav nav-pills navi">
-            <li class="search"><a href="#" class="js-header-search-toggle"><i class="fa fa-search"></i></a></li>
-            <li><a href="#">Shop</a></li>
-            <li class="active"><a href="#">Regular link</a></li>
-            {% if is_granted("ROLE_ADMIN") %}
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Dropdown <b class="caret"></b></a>
-                    <ul class="dropdown-menu" id="menu1">
-                        <li><a href="#">Gestion Base de données</a></li>
 
-                        <li class="divider"></li>
-                        <li><a href="#"></a></li>
+        <div class="search-bar">
+            <form method="GET" action="" class="js-sea-search sea-search">
+                <input type="search" name="q" placeholder="Recherche" autocomplete="off" class="search-input">
+            </form>
+        </div>
 
-                        <li><a href="{{ path('security_logout') }}">Logout</a></li>
-                    </ul>
-                </li>
-            {% elseif is_granted("ROLE_USER") %}
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Dropdown <b class="caret"></b></a>
-                    <ul class="dropdown-menu" id="menu1">
-                        <li><a href="#">Commandes</a></li>
-                        <li><a href="#">Gestion Compte</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{{ path('security_logout') }}">Logout</a></li>
-                    </ul>
-                </li>
-            {% else %}
+        <header class="header">
+            <img class="logo-icon" src="{{ asset('images/logo.png') }}">
+            <h1 class="logo"><a href="{{ path('home') }}">Movie Shop</a></h1>
+            <ul class="nav nav-pills navi">
+                <li class="search"><a href="#" class="js-header-search-toggle"><i class="fa fa-search"></i></a></li>
+                <li><a href="#">Shop</a></li>
+                <li class="active"><a href="#">Regular link</a></li>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu" id="menu1">
+                            <li><a href="#">Gestion Base de données</a></li>
 
-                <li><a href="{{ path('security_login') }}">Login</a></li>
-            {% endif %}
-            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                <li><a href="{{ path('user_register') }}">Inscription</a></li>
-            {% endif %}
-            <a class="left" href="#"><img width="30px" src="{{ asset('images/cart.png') }}" alt="caddie"></a>
-        </ul>
+                            <li class="divider"></li>
+                            <li><a href="#"></a></li>
+
+                            <li><a href="{{ path('security_logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                {% elseif is_granted("ROLE_USER") %}
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu" id="menu1">
+                            <li><a href="#">Commandes</a></li>
+                            <li><a href="{{ path('gestionCompte', {'idUtilisateur': app.user.idUtilisateur}) }}">Gestion Compte</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ path('security_logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('security_login') }}">Login</a></li>
+                {% endif %}
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li><a href="{{ path('user_register') }}">Inscription</a></li>
+                {% endif %}
+                <a class="left" href="#"><img width="30px" src="{{ asset('images/cart.png') }}" alt="caddie"></a>
+            </ul>
 
 
-    </header>
-    <div class="main-content">
-        {% for msg in app.session.flashBag.get('success') %}
-            <div class="alert alert-success">
-                {{ msg }}
-            </div>
-        {% endfor %}
-        {% block body %}{% endblock %}
-    </div>
-    <div class="footer">
-        <p>BOUTBOUL Michael --- CANIARD Marie-Lucile ||| S3A1</p>
-    </div>
-    {% block javascripts %}
-        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script src="{{ asset('js/main.js') }}"></script>
-    {% endblock %}
+        </header>
+        <div class="main-content">
+            {% for msg in app.session.flashBag.get('success') %}
+                <div class="alert alert-success">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+        </div>
+        <div class="footer">
+            <p>BOUTBOUL Michael --- CANIARD Marie-Lucile ||| S3A1</p>
+        </div>
+        {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+            <script src="{{ asset('js/main.js') }}"></script>
+        {% endblock %}
     </body>
 </html>

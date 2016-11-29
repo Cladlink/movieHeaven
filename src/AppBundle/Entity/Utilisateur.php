@@ -27,6 +27,7 @@ class Utilisateur implements  UserInterface
      */
     private $password;
     /**
+     *
      * @Assert\NotBlank()
      */
     private $plainPassword;
@@ -78,7 +79,7 @@ class Utilisateur implements  UserInterface
     /**
      * @ORM\Column(type="json_array", name="roles")
      */
-    private $roles = [];
+    private $roles = ['ROLE_ADMIN'];
 
     /**
      * @CaptchaAssert\ValidCaptcha(
@@ -120,14 +121,8 @@ class Utilisateur implements  UserInterface
     public function getUsername() { return $this->emailUtilisateur; }
     public function getRoles()
     {
-        $roles = $this->roles;
-        if (!in_array('ROLE_USER', $roles))
-        {
-            $roles[] = 'ROLE_USER';
-        }
-        return $roles;
+        return $this->roles;
     }
-
     // cryptage des mots de passe
     public function getPassword() { return $this->password; }
     public function setPassword($password) { $this->password = $password; }
