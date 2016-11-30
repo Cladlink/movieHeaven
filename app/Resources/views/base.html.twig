@@ -41,7 +41,7 @@
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">Dropdown <b class="caret"></b></a>
                         <ul class="dropdown-menu" id="menu1">
                             <li><a href="#">Commandes</a></li>
-                            <li><a href="{{ path('gestionCompte', {'idUtilisateur': app.user.idUtilisateur}) }}">Gestion Compte</a></li>
+                            <li><a href="{{ path('gestionCompte') }}">Gestion Compte</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ path('security_logout') }}">Logout</a></li>
                         </ul>
@@ -53,7 +53,7 @@
                 <li><a href="{{ path('user_register') }}">Inscription</a></li>
             {% endif %}
             {% if is_granted("ROLE_USER") %}
-                <a class="left" href="{{ path('afficherPanier', {'utilisateur': app.user.idUtilisateur}) }}"><img width="30px" src="{{ asset('images/cart.png') }}" alt="caddie"></a>
+                <a class="left" href="{{ path('afficherPanier') }}"><img width="30px" src="{{ asset('images/cart.png') }}" alt="caddie"></a>
             {% endif %}
         </ul>
 

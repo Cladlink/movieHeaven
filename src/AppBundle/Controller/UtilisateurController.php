@@ -77,19 +77,20 @@ class UtilisateurController extends Controller
         );
     }
     /**
-     * @Route("/accountManager/{idUtilisateur}/edit", name="gestionCompte")
+     * @Route("/accountManager/edit", name="gestionCompte")
      */
-    public function editLoginAction(Request $request, Utilisateur $utilisateur)
+    public function editLoginAction(Request $request)
     {
+        $utilisateur = $this->getUser();
         $form = $this->createForm(SigninForm::class, $utilisateur);
         // only handles data on POST
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            $em = $this->getDoctrine()->getManager();
             /** @var Utilisateur $user */
             $user = $form->getData();
-            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'Compte mis à jour!');

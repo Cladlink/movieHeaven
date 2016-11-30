@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: cladlink
- * Date: 30/11/16
- * Time: 12:58
- */
 
 namespace AppBundle\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CommentaireFilm
 {
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -41,7 +33,6 @@ class CommentaireFilm
      * @ORM\JoinColumn(name="utilisateurId", referencedColumnName="idUtilisateur")
      */
     private $utilisateurId;
-
 
     /**
      * Getters and setters

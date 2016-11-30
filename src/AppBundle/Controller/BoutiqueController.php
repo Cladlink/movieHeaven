@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Commande;
+use AppBundle\Entity\CommentaireFilm;
 use AppBundle\Entity\Film;
 use AppBundle\Entity\Panier;
 use AppBundle\Entity\Utilisateur;
@@ -23,7 +24,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class BoutiqueController extends Controller
 {
-
     /**
      * @Route("/ficheFilm/{idFilm}", name="ficheFilm")
      */
@@ -46,11 +46,13 @@ class BoutiqueController extends Controller
     }
 
     /**
-     * @Route("/panier/{utilisateur}", name="afficherPanier")
+     * @Route("/panier", name="afficherPanier")
      */
-    public function afficherPanier(Utilisateur $utilisateur)
-        {
+    public function afficherPanier()
+    {
+
         $em = $this->getDoctrine()->getManager();
+        $utilisateur = $this->getUser();
         $etat = $em->getRepository('AppBundle:EtatCommande')
             ->findOneBy(['libelleEtatCommande' => 'Pas commande']);
         $commandeConcernee = $em->getRepository('AppBundle:Commande')
@@ -61,11 +63,12 @@ class BoutiqueController extends Controller
     }
 
     /**
-     * @Route("/{utilisateur}/ajouterPanier/{film}", name="ajouterPanier")
+     * @Route("/ajouterPanier/{film}", name="ajouterPanier")
      */
-    public function ajouterAuPanier(Utilisateur $utilisateur, $film)
+    public function ajouterAuPanier(Film $film)
     {
         $em = $this->getDoctrine()->getManager();
+        $utilisateur = $this->getUser();
         $etat = $em->getRepository('AppBundle:EtatCommande')
             ->findOneBy(['libelleEtatCommande' => 'Pas commande']);
         $commandeConcernee = $em->getRepository('AppBundle:Commande')
@@ -92,7 +95,7 @@ class BoutiqueController extends Controller
                 $em->persist($panier);
                 $em->flush();
                 $films = $em->getRepository('AppBundle:Film')->findAll();
-                return $this->render('users/boutique.html.twig', ['films' => $films]);
+                return $this->render('Boutique/boutique.html.twig', ['films' => $films]);
             }
         }
 
@@ -106,15 +109,16 @@ class BoutiqueController extends Controller
         $em->flush();
 
         $films = $em->getRepository('AppBundle:Film')->findAll();
-        return $this->render('users/boutique.html.twig', array('films' => $films));
+        return $this->render('Boutique/boutique.html.twig', array('films' => $films));
     }
 
     /**
-     * @Route("/panier/{utilisateur}/commander", name="commander")
+     * @Route("/panier/commander", name="commander")
      */
-    public function commander(Utilisateur $utilisateur)
+    public function commander()
     {
         $em = $this->getDoctrine()->getManager();
+        $utilisateur = $this->getUser();
         $etat = $em->getRepository('AppBundle:EtatCommande')
             ->findOneBy(['libelleEtatCommande' => 'Pas commande']);
         $commande = $em->getRepository('AppBundle:Commande')
@@ -144,23 +148,24 @@ class BoutiqueController extends Controller
 
 
         $films = $em->getRepository('AppBundle:Film')->findAll();
-        return $this->render('users/boutique.html.twig', (['films' => $films]));
+        return $this->render('Boutique/boutique.html.twig', (['films' => $films]));
     }
     /**
      * @Route("/commentFilm/{name}/notes", name="commentFilm")
      * @Method("GET")
      */
-    public function getNotesAction(CommentFilm $commentFilm)
+    public function getNotesAction(CommentaireFilm $commentsFilm)
     {
+        /**
+         * @var CommentaireFilm[] $notes
+         */
         $notes = [];
 
-        foreach ($genus->getNotes() as $note) {
+        foreach ($notes as $note)
+        {
             $notes[] = [
-                'id' => $note->getId(),
-                'username' => $note->getUsername(),
-                'avatarUri' => '/images/'.$note->getUserAvatarFilename(),
-                'note' => $note->getNote(),
-                'date' => $note->getCreatedAt()->format('M d, Y')
+                'username' => $note->getUtilisateurId(),
+                'note' => $note->getCommentaire()
             ];
         }
 
