@@ -91,6 +91,11 @@ class BoutiqueController extends Controller
         {
             if($panier->getFilmId() == $filmAAjouter && $panier->getCommandeId() == $commandeConcernee)
             {
+                if($panier->getQuantitePanier()+1 > $filmAAjouter->getQuantiteFilm())
+                {
+                    $films = $em->getRepository('AppBundle:Film')->findAll();
+                    return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'erreur' => true]));
+                }
                 $panier->setQuantitePanier($panier->getQuantitePanier()+1);
                 $em->persist($panier);
                 $em->flush();
@@ -177,5 +182,82 @@ class BoutiqueController extends Controller
         ];
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/panier/plusQuantite/{idFilm}", name="plus")
+     */
+    public function augmenterQuantite($idFilm)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $this->getUser();
+        $etat = $em->getRepository('AppBundle:EtatCommande')
+            ->findOneBy(['libelleEtatCommande' => 'Pas commandee']);
+        $commande = $em->getRepository('AppBundle:Commande')
+            ->findOneBy(['etatId' => $etat, 'utilisateurId' => $utilisateur]);
+        $film = $em->getRepository('AppBundle:Film')
+            ->findOneBy(['idFilm' => $idFilm]);
+        $panier = $em->getRepository('AppBundle:Panier')->findOneBy([
+            'filmId' => $film,
+            'utilisateurId' => $utilisateur,
+            'commandeId' => $commande
+        ]);
+
+        $quantiteActuelle = $panier->getQuantitePanier();
+        if(($quantiteActuelle+1) > $film->getQuantiteFilm())
+        {
+            $contenu = $em->getRepository('AppBundle:Panier')
+                ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
+            return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu, 'erreur' => true]));
+        }
+
+        $panier->setQuantitePanier($quantiteActuelle+1);
+        $em->persist($panier);
+        $em->flush();
+
+
+        $contenu = $em->getRepository('AppBundle:Panier')
+            ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
+        return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu]));
+    }
+
+    /**
+     * @Route("/panier/moinsQuantite/{idFilm}", name="moins")
+     */
+    public function reduireQuantite($idFilm)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $this->getUser();
+        $etat = $em->getRepository('AppBundle:EtatCommande')
+            ->findOneBy(['libelleEtatCommande' => 'Pas commandee']);
+        $commande = $em->getRepository('AppBundle:Commande')
+            ->findOneBy(['etatId' => $etat, 'utilisateurId' => $utilisateur]);
+        $film = $em->getRepository('AppBundle:Film')
+            ->findOneBy(['idFilm' => $idFilm]);
+        $panier = $em->getRepository('AppBundle:Panier')->findOneBy([
+            'filmId' => $film,
+            'utilisateurId' => $utilisateur,
+            'commandeId' => $commande
+        ]);
+
+        $quantiteActuelle = $panier->getQuantitePanier();
+        if(($quantiteActuelle-1) < 1)
+        {
+            $em->remove($panier);
+            $em->flush();
+
+            $contenu = $em->getRepository('AppBundle:Panier')
+                ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
+            return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu]));
+        }
+
+        $panier->setQuantitePanier($quantiteActuelle-1);
+        $em->persist($panier);
+        $em->flush();
+
+
+        $contenu = $em->getRepository('AppBundle:Panier')
+            ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
+        return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu]));
     }
 }

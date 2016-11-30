@@ -4,6 +4,11 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2>Gestion des films</h2>
+                {% if erreur is defined and erreur == true %}
+                    <script type="text/javascript">
+                        alert("Plus assez d'objets en stock.");
+                    </script>
+                {% endif %}
                 <table cellspacing="60">
                     <caption>Liste des films</caption>
                     <thead>
@@ -13,7 +18,9 @@
                         <th>Durée</th>
                         <th>Date de sortie</th>
                         <th>Prix</th>
+                        <th></th>
                         <th>Quantité</th>
+                        <th></th>
                         <th>Supprimer</th>
                     </tr>
                     </thead>
@@ -26,7 +33,11 @@
                             <td>{{panier.filmid.dureeFilm}}</td>
                             <td>{{panier.filmId.dateFilm|date('Y-m-d')}}</td>
                             <td>{{panier.filmId.prixFilm}}</td>
+                            <td><a href="{{ path('moins', {'idFilm': panier.filmId.idFilm}) }}" style="font-size: 50px">-</a></td>
                             <td>{{panier.quantitePanier}}</td>
+                            <td><a href="{{ path('plus', {'idFilm': panier.filmId.idFilm}) }}" style="font-size: 25px">+</a></td>
+                            <td>supprimer</td>
+                            {#<td><a href="{{ path('supprimerProduitPanier', {'film': film.id}) }}"><img width="30px" src="{{ asset('images/supprimer.png') }}" alt="Supprimer"></a></td>#}
                         </tr>
                     {% endfor %}
                     </tbody>
