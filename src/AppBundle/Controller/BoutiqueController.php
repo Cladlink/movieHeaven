@@ -123,7 +123,7 @@ class BoutiqueController extends Controller
             ->findOneBy(['libelleEtatCommande' => 'Pas commande']);
         $commande = $em->getRepository('AppBundle:Commande')
             ->findOneBy(['utilisateurId' => $utilisateur, 'etatId' => $etat]);
-        if($commande)
+        if($commande != null)
         {
             // Calcul du montant total de la commande
             $paniers = $em->getRepository('AppBundle:Panier')
@@ -131,6 +131,9 @@ class BoutiqueController extends Controller
             $prixTotal = 0;
             foreach ($paniers as $key => $panier)
             {
+                /**
+                 * @var Panier $panier
+                 */
                 $panier->setCommandeId($commande);
                 $film = $em->getRepository('AppBundle:Film')->findOneBy(['idFilm' => $panier->getFilmId()]);
                 $quantite = $panier->getQuantitePanier();

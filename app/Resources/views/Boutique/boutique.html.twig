@@ -30,7 +30,7 @@
                             <td>{{film.prixFilm}}</td>
                             <td>{{film.quantiteFilm}}</td>
                             <td>
-                                <a href="{{ path('ajouterPanier', {'film': film.idFilm, 'utilisateur': app.user.idUtilisateur}) }}">
+                                <a href="{{ path('ajouterPanier', {'film': film.idFilm}) }}">
                                     <img width="50px" src="{{ asset('images/addCart.png') }}" alt="Ajouter">
                                 </a>
                             </td>

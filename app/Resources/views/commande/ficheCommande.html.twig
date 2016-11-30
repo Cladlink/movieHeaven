@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Fiche de la commande</h2>
+                <table cellspacing="60">
+                    <caption>Commande</caption>
+                    <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Titre</th>
+                        <th>Durée</th>
+                        <th>Date de sortie</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for panier in paniers if paniers is not empty %}
+
+                        <tr>
+                            <td><img width="60px" src="{{asset('images/uploaded/' ~ panier.filmId.imageFilm)}}"> </td>
+                            <td>{{panier.filmId.titreFilm}}</td>
+                            <td>{{panier.filmid.dureeFilm}}</td>
+                            <td>{{panier.filmId.dateFilm|date('Y-m-d')}}</td>
+                            <td>{{panier.filmId.prixFilm}}</td>
+                            <td>{{panier.quantitePanier}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

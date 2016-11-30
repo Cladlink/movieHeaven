@@ -12,7 +12,8 @@
                         <th>Prix</th>
                         <th>Date</th>
                         <th>Etat</th>
-                        <th>Editer</th>
+                        <th>Détails</th>
+                        <th>Valider la commande</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -23,8 +24,8 @@
                             <td>{{commande.prixCommande}}</td>
                             <td>{{commande.dateCommande|date('Y-m-d')}}</td>
                             <td>{{commande.etatId.libelleEtatCommande}}</td>
-                            <td>{{film.quantiteFilm}}</td>
-                            <td><a href="#">Editer</a></td>
+                            <td><a href="{{ path('ficheCommande') }}">Détails de la commande</a></td>
+                            <td><a href="{{ path('validerCommande') }}">Valider</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
