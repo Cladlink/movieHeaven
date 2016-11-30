@@ -30,12 +30,17 @@ class CommentaireFilm
      */
     private $commentaire;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Film")
      * @ORM\JoinColumn(name="filmId", referencedColumnName="idFilm")
      */
     private $filmId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\JoinColumn(name="utilisateurId", referencedColumnName="idUtilisateur")
+     */
+    private $utilisateurId;
 
 
     /**
@@ -46,4 +51,6 @@ class CommentaireFilm
     public function setCommentaire($commentaire) { $this->commentaire = $commentaire; }
     public function getFilmId() { return $this->filmId; }
     public function setFilmId($filmId) { $this->filmId = $filmId;}
+    public function getUtilisateurId() { return $this->utilisateurId; }
+    public function setUtilisateurId($utilisateurId) { $this->utilisateurId = $utilisateurId; }
 }

@@ -24,7 +24,7 @@
 
     <script type="text/babel" src="{{ asset('js/notes.react.js') }}"></script>
     <script type="text/babel">
-        var notesUrl = '{{ path('commentFilm', {'name': commentFilm.name}) }}';
+        var notesUrl = '{{ path('commentFilm', {'name': CommentFilm.name}) }}';
 
         ReactDOM.render(
                 <NoteSection url={notesUrl} />,
