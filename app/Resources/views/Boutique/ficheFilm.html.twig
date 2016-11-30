@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Fiche du film {{ films.titreFilm }}</h2>
+                        <img width="60px" src="{{asset('images/uploaded/' ~ films.imageFilm)}}">
+                    {{films.titreFilm}}
+                    {{films.dureeFilm}}
+                    {{films.dateFilm|date('Y-m-d')}}
+                    {{films.prixFilm}}
+                    {{films.quantiteFilm}}
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

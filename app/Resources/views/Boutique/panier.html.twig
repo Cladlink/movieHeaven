@@ -27,7 +27,6 @@
                             <td>{{panier.filmId.dateFilm|date('Y-m-d')}}</td>
                             <td>{{panier.filmId.prixFilm}}</td>
                             <td>{{panier.quantitePanier}}</td>
-                            {#<td><a href="{{ path('ajouterPanier', {film: film.idFilm, utilisateur: app.user.idUtilisateur}) }}"><img width="50px" src="{{ asset('images/supprimer.png') }}" alt="Supprimer"></a></td>#}
                         </tr>
                     {% endfor %}
                     </tbody>

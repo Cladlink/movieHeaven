@@ -19,15 +19,21 @@
                     </thead>
                     <tbody>
                     {% for film in films if films is not empty %}
-
                         <tr>
-                            <td><img width="60px" src="{{asset('images/uploaded/' ~ film.imageFilm)}}"> </td>
+                            <td><a href="{{ path('ficheFilm', {'idFilm': film.idFilm}) }}">
+                                    <img width="60px" src="{{asset('images/uploaded/' ~ film.imageFilm)}}"/>
+                                </a>
+                            </td>
                             <td>{{film.titreFilm}}</td>
                             <td>{{film.dureeFilm}}</td>
                             <td>{{film.dateFilm|date('Y-m-d')}}</td>
                             <td>{{film.prixFilm}}</td>
                             <td>{{film.quantiteFilm}}</td>
-                            <td><a href="{{ path('ajouterPanier', {'film': film.idFilm, 'utilisateur': app.user.idUtilisateur}) }}"><img width="50px" src="{{ asset('images/addCart.png') }}" alt="Ajouter"></a></td>
+                            <td>
+                                <a href="{{ path('ajouterPanier', {'film': film.idFilm, 'utilisateur': app.user.idUtilisateur}) }}">
+                                    <img width="50px" src="{{ asset('images/addCart.png') }}" alt="Ajouter">
+                                </a>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -36,5 +42,3 @@
         </div>
     </div>
 {% endblock %}
-
-

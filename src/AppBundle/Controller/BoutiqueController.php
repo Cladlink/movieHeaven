@@ -21,6 +21,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class BoutiqueController extends Controller
 {
+
+    /**
+     * @Route("/ficheFilm/{idFilm}", name="ficheFilm")
+     */
+     public function ficheFilmAction(Film $film)
+     {
+         $em = $this->getDoctrine()->getManager();
+         $films = $em->getRepository('AppBundle:Film')
+             ->find($film);
+         return $this->render(':Boutique:ficheFilm.html.twig', (['films' => $films]));
+     }
+
     /**
      * @Route("/", name="afficherBoutique")
      */
@@ -28,14 +40,14 @@ class BoutiqueController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $films = $em->getRepository('AppBundle:Film')->findAll();
-        return $this->render('users/boutique.html.twig', (['films' => $films]));
+        return $this->render('Boutique/boutique.html.twig', (['films' => $films]));
     }
 
     /**
      * @Route("/panier/{utilisateur}", name="afficherPanier")
      */
     public function afficherPanier(Utilisateur $utilisateur)
-    {
+        {
         $em = $this->getDoctrine()->getManager();
         $etat = $em->getRepository('AppBundle:EtatCommande')
             ->findOneBy(['libelleEtatCommande' => 'Pas commande']);
@@ -43,7 +55,7 @@ class BoutiqueController extends Controller
             ->findOneBy(['utilisateurId' => $utilisateur, 'etatId' => $etat]);
         $contenu = $em->getRepository('AppBundle:Panier')
             ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commandeConcernee]);
-        return $this->render('users/panier.html.twig', (['contenu' => $contenu]));
+        return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu]));
     }
 
     /**
