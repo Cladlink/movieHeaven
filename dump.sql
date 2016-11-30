@@ -18,7 +18,8 @@
 --
 -- Table structure for table `Commande`
 --
-
+CREATE DATABASE movieHeavenTest;
+USE movieHeavenTest;
 DROP TABLE IF EXISTS `Commande`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

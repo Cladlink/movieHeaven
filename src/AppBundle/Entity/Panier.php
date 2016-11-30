@@ -63,4 +63,21 @@ class Panier
     public function getFilmId() { return $this->filmId; }
     public function setFilmId($filmId) { $this->filmId = $filmId; }
 
+    /**
+     * @return mixed
+     */
+    public function getCommandeId()
+    {
+        return $this->commandeId;
+    }
+
+    /**
+     * @param mixed $commandeId
+     */
+    public function setCommandeId($commandeId)
+    {
+        $this->commandeId = $commandeId;
+    }
+
+
 }

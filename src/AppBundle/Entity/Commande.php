@@ -62,6 +62,4 @@ class Commande
     public function setUtilisateurId($utilisateurId) { $this->utilisateurId = $utilisateurId; }
     public function getEtatId() { return $this->etatId; }
     public function setEtatId($etatId) { $this->etatId = $etatId; }
-    public function getPanierId() { return $this->panierId; }
-    public function setPanierId($panierId) { $this->panierId = $panierId; }
 }

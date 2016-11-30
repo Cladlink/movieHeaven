@@ -54,7 +54,7 @@ class UtilisateurController extends Controller
             /** @var Utilisateur $user */
             $user = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $user->setRoles(['ROLE_ADMIN']);
+            $user->setRoles(['ROLE_USER']);
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'Welcome'.$user->getEmailUtilisateur());

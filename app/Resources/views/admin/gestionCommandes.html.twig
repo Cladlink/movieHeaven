@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Gestion des films</h2>
+                <table cellspacing="60">
+                    <caption>Liste des commandes</caption>
+                    <thead>
+                    <tr>
+                        <th>Nom utilisateur</th>
+                        <th>Prix</th>
+                        <th>Date</th>
+                        <th>Etat</th>
+                        <th>Editer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for commande in commandes if commandes is not empty %}
+
+                        <tr>
+                            <td>{{commande.utilisateurId.nomUtilisateur}}</td>
+                            <td>{{commande.prixCommande}}</td>
+                            <td>{{commande.dateCommande|date('Y-m-d')}}</td>
+                            <td>{{commande.etatId.libelleEtatCommande}}</td>
+                            <td>{{film.quantiteFilm}}</td>
+                            <td><a href="#">Editer</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

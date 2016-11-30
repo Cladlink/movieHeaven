@@ -60,7 +60,7 @@ class Film
     private $quantiteFilm;
 
     /**
-     * @Assert\File()
+     * @Assert\Image()
      * @ORM\Column(type="string", name="imageFilm")
      */
     private $imageFilm;

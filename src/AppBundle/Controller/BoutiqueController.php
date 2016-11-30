@@ -9,6 +9,9 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Commande;
+use AppBundle\Entity\Film;
+use AppBundle\Entity\Panier;
 use AppBundle\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,13 +19,114 @@ use Symfony\Component\Routing\Annotation\Route;
 class BoutiqueController extends Controller
 {
     /**
-     * @Route("/panier", name="afficherPanier")
+     * @Route("/boutique", name="afficherBoutique")
+     */
+    public function afficherBoutique()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $films = $em->getRepository('AppBundle:Film')->findAll();
+        return $this->render('users/boutique.html.twig', (['films' => $films]));
+    }
+
+    /**
+     * @Route("/panier/{utilisateur}", name="afficherPanier")
      */
     public function afficherPanier(Utilisateur $utilisateur)
     {
         $em = $this->getDoctrine()->getManager();
+        $etat = $em->getRepository('AppBundle:EtatCommande')
+            ->findOneBy(['libelleEtatCommande' => 'Pas commande']);
+        $commandeConcernee = $em->getRepository('AppBundle:Commande')
+            ->findOneBy(['utilisateurId' => $utilisateur, 'etatId' => $etat]);
         $contenu = $em->getRepository('AppBundle:Panier')
-            ->findBy(array('utilisateurId' => $utilisateur->getIdUtilisateur()));
-        return $this->render('admin/gestionFilms.html.twig', (['contenu' => $contenu]));
+            ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commandeConcernee]);
+        return $this->render('users/panier.html.twig', (['contenu' => $contenu]));
+    }
+
+    /**
+     * @Route("/boutique/{utilisateur}/ajouterPanier/{film}", name="ajouterPanier")
+     */
+    public function ajouterAuPanier(Utilisateur $utilisateur, $film)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $etat = $em->getRepository('AppBundle:EtatCommande')
+            ->findOneBy(['libelleEtatCommande' => 'Pas commande']);
+        $commandeConcernee = $em->getRepository('AppBundle:Commande')
+            ->findOneBy(['utilisateurId' => $utilisateur, 'etatId' => $etat]);
+        if(!$commandeConcernee)
+        {
+            $commandeConcernee = new Commande();
+            $commandeConcernee->setUtilisateurId($utilisateur);
+            $dateActuelle = new \DateTime(date('Y-m-d'));
+            $commandeConcernee->setDateCommande($dateActuelle);
+            $commandeConcernee->setEtatId($etat);
+            $commandeConcernee->setPrixCommande(0);
+            $em->persist($commandeConcernee);
+            $em->flush();
+        }
+        $filmAAjouter = $em->getRepository('AppBundle:Film')->findOneBy(['idFilm' => $film]);
+        $paniers = $em->getRepository('AppBundle:Panier')
+            ->findBy(['utilisateurId' => $utilisateur->getIdUtilisateur()]);
+        foreach ($paniers as $key => $panier)
+        {
+            if($panier->getFilmId() == $filmAAjouter && $panier->getCommandeId() == $commandeConcernee)
+            {
+                $panier->setQuantitePanier($panier->getQuantitePanier()+1);
+                $em->persist($panier);
+                $em->flush();
+                $films = $em->getRepository('AppBundle:Film')->findAll();
+                return $this->render('users/boutique.html.twig', ['films' => $films]);
+            }
+        }
+
+        $liaison = new Panier();
+        $liaison->setQuantitePanier(1);
+        $liaison->setFilmId($filmAAjouter);
+        $liaison->setUtilisateurId($utilisateur);
+        $liaison->setCommandeId($commandeConcernee);
+
+        $em->persist($liaison);
+        $em->flush();
+
+        $films = $em->getRepository('AppBundle:Film')->findAll();
+        return $this->render('users/boutique.html.twig', array('films' => $films));
+    }
+
+    /**
+     * @Route("/panier/{utilisateur}/commander", name="commander")
+     */
+    public function commander(Utilisateur $utilisateur)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $etat = $em->getRepository('AppBundle:EtatCommande')
+            ->findOneBy(['libelleEtatCommande' => 'Pas commande']);
+        $commande = $em->getRepository('AppBundle:Commande')
+            ->findOneBy(['utilisateurId' => $utilisateur, 'etatId' => $etat]);
+        if($commande)
+        {
+            // Calcul du montant total de la commande
+            $paniers = $em->getRepository('AppBundle:Panier')
+                ->findBy(['utilisateurId' => $utilisateur->getIdUtilisateur(), 'commandeId' => $commande]);
+            $prixTotal = 0;
+            foreach ($paniers as $key => $panier)
+            {
+                $panier->setCommandeId($commande);
+                $film = $em->getRepository('AppBundle:Film')->findOneBy(['idFilm' => $panier->getFilmId()]);
+                $quantite = $panier->getQuantitePanier();
+                $prix = $film->getPrixFilm();
+                $prixTotal += $prix * $quantite;
+            }
+            $commande->setPrixCommande($prixTotal);
+            $etatFait = $em->getRepository('AppBundle:EtatCommande')
+                ->findOneBy(['libelleEtatCommande' => 'En attente d expedition']);
+            $commande->setEtatId($etatFait);
+
+            $em->persist($commande);
+            $em->flush();
+        }
+
+
+        $films = $em->getRepository('AppBundle:Film')->findAll();
+        return $this->render('users/boutique.html.twig', (['films' => $films]));
     }
 }
