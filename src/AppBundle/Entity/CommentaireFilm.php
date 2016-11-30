@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="commentaire_film")
+ * @ORM\Table(name="CommentaireFilm")
  */
 class CommentaireFilm
 {

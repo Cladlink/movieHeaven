@@ -33,7 +33,7 @@ CREATE TABLE `Commande` (
   KEY `IDX_979CC42B5EAF78A2` (`etatId`),
   CONSTRAINT `FK_979CC42B31EE9377` FOREIGN KEY (`utilisateurId`) REFERENCES `Utilisateur` (`idUtilisateur`),
   CONSTRAINT `FK_979CC42B5EAF78A2` FOREIGN KEY (`etatId`) REFERENCES `EtatCommande` (`idEtatCommande`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,8 +42,37 @@ CREATE TABLE `Commande` (
 
 LOCK TABLES `Commande` WRITE;
 /*!40000 ALTER TABLE `Commande` DISABLE KEYS */;
-INSERT INTO `Commande` VALUES (1,0,'2016-11-30',7,NULL);
+INSERT INTO `Commande` VALUES (1,0,'2016-11-30',7,NULL),(2,49.24,'2016-11-30',5,2);
 /*!40000 ALTER TABLE `Commande` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `CommentaireFilm`
+--
+
+DROP TABLE IF EXISTS `CommentaireFilm`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `CommentaireFilm` (
+  `id_comment_film` int(11) NOT NULL AUTO_INCREMENT,
+  `commentaire` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `filmId` int(11) DEFAULT NULL,
+  `utilisateurId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_comment_film`),
+  KEY `IDX_7CB9517EA1D6191D` (`filmId`),
+  KEY `IDX_7CB9517E31EE9377` (`utilisateurId`),
+  CONSTRAINT `FK_7CB9517E31EE9377` FOREIGN KEY (`utilisateurId`) REFERENCES `Utilisateur` (`idUtilisateur`),
+  CONSTRAINT `FK_7CB9517EA1D6191D` FOREIGN KEY (`filmId`) REFERENCES `Film` (`idFilm`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `CommentaireFilm`
+--
+
+LOCK TABLES `CommentaireFilm` WRITE;
+/*!40000 ALTER TABLE `CommentaireFilm` DISABLE KEYS */;
+/*!40000 ALTER TABLE `CommentaireFilm` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -148,7 +177,7 @@ CREATE TABLE `Panier` (
   CONSTRAINT `FK_236008C431EE9377` FOREIGN KEY (`utilisateurId`) REFERENCES `Utilisateur` (`idUtilisateur`),
   CONSTRAINT `FK_236008C48F992C7E` FOREIGN KEY (`commandeId`) REFERENCES `Commande` (`idCommande`),
   CONSTRAINT `FK_236008C4A1D6191D` FOREIGN KEY (`filmId`) REFERENCES `Film` (`idFilm`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +186,7 @@ CREATE TABLE `Panier` (
 
 LOCK TABLES `Panier` WRITE;
 /*!40000 ALTER TABLE `Panier` DISABLE KEYS */;
-INSERT INTO `Panier` VALUES (1,1,7,7,1);
+INSERT INTO `Panier` VALUES (1,1,7,7,1),(2,4,5,7,2);
 /*!40000 ALTER TABLE `Panier` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,32 +273,6 @@ INSERT INTO `Utilisateur` VALUES (1,'$2y$13$ff5q2FCUUzSXJ5k1E4EU9e0VzYKJ3uLByMYo
 UNLOCK TABLES;
 
 --
--- Table structure for table `commentaire_film`
---
-
-DROP TABLE IF EXISTS `commentaire_film`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `commentaire_film` (
-  `id_comment_film` int(11) NOT NULL AUTO_INCREMENT,
-  `commentaire` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `filmId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_comment_film`),
-  KEY `IDX_6BBC7A70A1D6191D` (`filmId`),
-  CONSTRAINT `FK_6BBC7A70A1D6191D` FOREIGN KEY (`filmId`) REFERENCES `Film` (`idFilm`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `commentaire_film`
---
-
-LOCK TABLES `commentaire_film` WRITE;
-/*!40000 ALTER TABLE `commentaire_film` DISABLE KEYS */;
-/*!40000 ALTER TABLE `commentaire_film` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `migration_versions`
 --
 
@@ -288,7 +291,7 @@ CREATE TABLE `migration_versions` (
 
 LOCK TABLES `migration_versions` WRITE;
 /*!40000 ALTER TABLE `migration_versions` DISABLE KEYS */;
-INSERT INTO `migration_versions` VALUES ('20161128142405'),('20161129223153'),('20161129224842'),('20161130081242'),('20161130084935'),('20161130100450'),('20161130131406');
+INSERT INTO `migration_versions` VALUES ('20161128142405'),('20161129223153'),('20161129224842'),('20161130081242'),('20161130084935'),('20161130100450'),('20161130131406'),('20161130132559'),('20161130151130');
 /*!40000 ALTER TABLE `migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -301,4 +304,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-30 13:22:39
+-- Dump completed on 2016-11-30 15:15:32

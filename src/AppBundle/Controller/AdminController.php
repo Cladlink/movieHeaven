@@ -130,7 +130,6 @@ class AdminController extends Controller
 
         if($form->isSubmitted() && $form->isValid())
         {
-
             $type = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($type);
@@ -142,8 +141,4 @@ class AdminController extends Controller
             'form' => $form->createView()
         ]);
     }
-
-
-
-
 }
