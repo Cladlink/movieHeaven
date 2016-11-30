@@ -21,13 +21,12 @@ class CommandeController extends Controller
 {
 
     /**
-     * @Route("/liste", name="listeCommandes")
+     * @Route("/gestionCommandes", name="gestionCommandes")
      */
-    public function afficherPanier(Utilisateur $utilisateur)
+    public function gestionCommandes()
     {
         $em = $this->getDoctrine()->getManager();
-        $contenu = $em->getRepository('AppBundle:Commande')
-            ->findAll();
-        return $this->render('admin/gestionFilms.html.twig', (['contenu' => $contenu]));
+        $commandes = $em->getRepository('AppBundle:Commande')->findAll();
+        return $this->render('commande/gestionCommandes.html.twig', (['commandes' => $commandes]));
     }
 }
