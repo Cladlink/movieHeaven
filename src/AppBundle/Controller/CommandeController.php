@@ -55,4 +55,21 @@ class CommandeController extends Controller
         $paniersDeLaCommande = $em->getRepository('AppBundle:Panier')->findBy(['commandeId' => $idCommande]);
         return $this->render('commande/ficheCommande.html.twig', (['paniers' => $paniersDeLaCommande]));
     }
+
+    /**
+     * @Route("/afficherCommandes", name="afficherCommandesUtilisateur")
+     */
+    public function afficherCommandesClient()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $this->getUser();
+        $etat1 = $em->getRepository('AppBundle:EtatCommande')->findOneBy(['libelleEtatCommande' => 'Expediee']);
+        $etat2= $em->getRepository('AppBundle:EtatCommande')->findOneBy(['libelleEtatCommande' => 'En attente d expedition']);
+        $etat3 = $em->getRepository('AppBundle:EtatCommande')->findOneBy(['libelleEtatCommande' => 'Livree']);
+        $commandesUser = $em->getRepository('AppBundle:Commande')->findBy([
+            'utilisateurId' => $utilisateur,
+            'etatId' => [$etat1, $etat2, $etat3]
+            ]);
+        return $this->render('commande/afficherCommandeCoteUtilisateur.html.twig', ['commandes' => $commandesUser]);
+    }
 }

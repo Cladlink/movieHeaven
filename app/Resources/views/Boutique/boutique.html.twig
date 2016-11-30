@@ -4,16 +4,6 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2>Boutique</h2>
-                {% if erreur is defined and erreur == true %}
-                    <script type="text/javascript">
-                        alert("Plus assez d'objets en stock.");
-                    </script>
-                {% endif %}
-                {% if commandeEmpty is defined and commandeEmpty == true %}
-                    <script type="text/javascript">
-                        alert("Le panier est vide");
-                    </script>
-                {% endif %}
                 <table cellspacing="60">
                     <caption>Liste des films</caption>
                     <thead>
@@ -49,6 +39,16 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                {% if erreur is defined and erreur == true %}
+                    <script type="text/javascript">
+                        alert("Plus assez d'objets en stock.");
+                    </script>
+                {% endif %}
+                {% if commandeEmpty is defined and commandeEmpty == true %}
+                    <script type="text/javascript">
+                        alert("Le panier est vide");
+                    </script>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -4,11 +4,6 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2>Gestion des films</h2>
-                {% if erreur is defined and erreur == true %}
-                    <script type="text/javascript">
-                        alert("Plus assez d'objets en stock.");
-                    </script>
-                {% endif %}
                 <table cellspacing="60">
                     <caption>Liste des films</caption>
                     <thead>
@@ -43,6 +38,11 @@
                     </tbody>
                 </table>
                 <a href="{{ path('commander') }}">Valider la commande</a>
+                {% if erreur is defined and erreur == true %}
+                    <script type="text/javascript">
+                        alert("Plus assez d'objets en stock.");
+                    </script>
+                {% endif %}
             </div>
         </div>
     </div>

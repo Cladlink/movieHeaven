@@ -103,18 +103,20 @@ class BoutiqueController extends Controller
                 return $this->render('Boutique/boutique.html.twig', ['films' => $films]);
             }
         }
-
-        $liaison = new Panier();
-        $liaison->setQuantitePanier(1);
-        $liaison->setFilmId($filmAAjouter);
-        $liaison->setUtilisateurId($utilisateur);
-        $liaison->setCommandeId($commandeConcernee);
-
-        $em->persist($liaison);
-        $em->flush();
-
         $films = $em->getRepository('AppBundle:Film')->findAll();
-        return $this->render('Boutique/boutique.html.twig', array('films' => $films));
+        if($filmAAjouter->getQuantiteFilm() > 0)
+        {
+            $liaison = new Panier();
+            $liaison->setQuantitePanier(1);
+            $liaison->setFilmId($filmAAjouter);
+            $liaison->setUtilisateurId($utilisateur);
+            $liaison->setCommandeId($commandeConcernee);
+
+            $em->persist($liaison);
+            $em->flush();
+            return $this->render('Boutique/boutique.html.twig', (['films' => $films]));
+        }
+        return $this->render('Boutique/boutique.html.twig',(['films' => $films, 'erreur' => true]));
     }
 
     /**
