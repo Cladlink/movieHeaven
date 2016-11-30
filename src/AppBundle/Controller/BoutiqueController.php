@@ -16,10 +16,13 @@ use AppBundle\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/boutique")
+ */
 class BoutiqueController extends Controller
 {
     /**
-     * @Route("/boutique", name="afficherBoutique")
+     * @Route("/", name="afficherBoutique")
      */
     public function afficherBoutique()
     {
@@ -44,7 +47,7 @@ class BoutiqueController extends Controller
     }
 
     /**
-     * @Route("/boutique/{utilisateur}/ajouterPanier/{film}", name="ajouterPanier")
+     * @Route("/{utilisateur}/ajouterPanier/{film}", name="ajouterPanier")
      */
     public function ajouterAuPanier(Utilisateur $utilisateur, $film)
     {
