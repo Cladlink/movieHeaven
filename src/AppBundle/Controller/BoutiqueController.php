@@ -130,6 +130,7 @@ class BoutiqueController extends Controller
             ->findOneBy(['utilisateurId' => $utilisateur, 'etatId' => $etat]);
         if($commande != null)
         {
+            $erreur = false;
             // Calcul du montant total de la commande
             $paniers = $em->getRepository('AppBundle:Panier')
                 ->findBy(['utilisateurId' => $utilisateur->getIdUtilisateur(), 'commandeId' => $commande]);
@@ -143,6 +144,9 @@ class BoutiqueController extends Controller
                 $film = $em->getRepository('AppBundle:Film')->findOneBy(['idFilm' => $panier->getFilmId()]);
                 $quantite = $panier->getQuantitePanier();
                 $prix = $film->getPrixFilm();
+                $film->setQuantiteFilm($film->getQuantiteFilm()-$quantite);
+                $em->persist($film);
+                $em->flush();
                 $prixTotal += $prix * $quantite;
             }
             $commande->setPrixCommande($prixTotal);
@@ -153,10 +157,13 @@ class BoutiqueController extends Controller
             $em->persist($commande);
             $em->flush();
         }
-
+        else
+        {
+            $erreur = true;
+        }
 
         $films = $em->getRepository('AppBundle:Film')->findAll();
-        return $this->render('Boutique/boutique.html.twig', (['films' => $films]));
+        return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'commandeEmpty' => $erreur]));
     }
     /**
      * @Route("/commentFilm/{name}/notes", name="commentFilm")

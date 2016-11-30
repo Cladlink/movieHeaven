@@ -9,6 +9,11 @@
                         alert("Plus assez d'objets en stock.");
                     </script>
                 {% endif %}
+                {% if commandeEmpty is defined and commandeEmpty == true %}
+                    <script type="text/javascript">
+                        alert("Le panier est vide");
+                    </script>
+                {% endif %}
                 <table cellspacing="60">
                     <caption>Liste des films</caption>
                     <thead>
