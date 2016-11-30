@@ -18,8 +18,7 @@
 --
 -- Table structure for table `Commande`
 --
-CREATE DATABASE movieHeavenTest;
-USE movieHeavenTest;
+
 DROP TABLE IF EXISTS `Commande`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -34,7 +33,7 @@ CREATE TABLE `Commande` (
   KEY `IDX_979CC42B5EAF78A2` (`etatId`),
   CONSTRAINT `FK_979CC42B31EE9377` FOREIGN KEY (`utilisateurId`) REFERENCES `Utilisateur` (`idUtilisateur`),
   CONSTRAINT `FK_979CC42B5EAF78A2` FOREIGN KEY (`etatId`) REFERENCES `EtatCommande` (`idEtatCommande`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +42,7 @@ CREATE TABLE `Commande` (
 
 LOCK TABLES `Commande` WRITE;
 /*!40000 ALTER TABLE `Commande` DISABLE KEYS */;
+INSERT INTO `Commande` VALUES (1,0,'2016-11-30',7,NULL);
 /*!40000 ALTER TABLE `Commande` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,7 +80,7 @@ CREATE TABLE `EtatCommande` (
   `idEtatCommande` int(11) NOT NULL AUTO_INCREMENT,
   `libelleEtatCommande` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`idEtatCommande`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,6 +89,7 @@ CREATE TABLE `EtatCommande` (
 
 LOCK TABLES `EtatCommande` WRITE;
 /*!40000 ALTER TABLE `EtatCommande` DISABLE KEYS */;
+INSERT INTO `EtatCommande` VALUES (1,'Expediee'),(2,'En attente d expedition'),(4,'Pas commandee'),(5,'Livree');
 /*!40000 ALTER TABLE `EtatCommande` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +148,7 @@ CREATE TABLE `Panier` (
   CONSTRAINT `FK_236008C431EE9377` FOREIGN KEY (`utilisateurId`) REFERENCES `Utilisateur` (`idUtilisateur`),
   CONSTRAINT `FK_236008C48F992C7E` FOREIGN KEY (`commandeId`) REFERENCES `Commande` (`idCommande`),
   CONSTRAINT `FK_236008C4A1D6191D` FOREIGN KEY (`filmId`) REFERENCES `Film` (`idFilm`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,6 +157,7 @@ CREATE TABLE `Panier` (
 
 LOCK TABLES `Panier` WRITE;
 /*!40000 ALTER TABLE `Panier` DISABLE KEYS */;
+INSERT INTO `Panier` VALUES (1,1,7,7,1);
 /*!40000 ALTER TABLE `Panier` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,7 +230,7 @@ CREATE TABLE `Utilisateur` (
   `uniqueKeyUtilisateur` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `roles` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:json_array)',
   PRIMARY KEY (`idUtilisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -237,8 +239,34 @@ CREATE TABLE `Utilisateur` (
 
 LOCK TABLES `Utilisateur` WRITE;
 /*!40000 ALTER TABLE `Utilisateur` DISABLE KEYS */;
-INSERT INTO `Utilisateur` VALUES (1,'$2y$13$ff5q2FCUUzSXJ5k1E4EU9e0VzYKJ3uLByMYoUv8xFffxFBP5TGMxG','kevin@limacher.fr','kevin','limacher','3 rue de la rue',60000,'rue',0,'583c37c258270','[\"ROLE_USER\"]'),(2,'$2y$13$wlKa8CYiV14rJ7kJ3QQIeuhaoGeZQGNnELNsuysMEA/tg0Ku.ouoq','kevin2@limacher.fr','kevin','limacher','3 rue de la rue',60000,'rue',0,'583c37e9b18e4','[\"ROLE_USER\"]'),(3,'$2y$13$61hNLVGxZD2Rxp8VMS5fju2EAn5KNxizr0O6Eo8p9.LqDgqJXU.hi','marlu@caniard.fr','marlu','caniard','3 rue de marlu',60000,'marlu',0,'583c386025577','[\"ROLE_USER\"]'),(4,'$2y$13$sD/Ojkl3ASXZxy.8aHMwHeF/E5lp8O5FDMQWD2Gy3TAIH4wUeTeOy','cladlink@live.fr','BOUTBOUL','Michael','15 rue des carrières',90000,'BELFORT',0,'583c3d7b4bf5a','[\"ROLE_USER\"]'),(5,'$2y$13$VAP2okuJgiNtDdkcGF3OJ.2GvZyE7QWmmLX/1GcfI2Z2xWF8lpUbG','tete@pied.fr','azertyyyyyyy','ty','2 rue de bbb',90000,'belfort',0,'583caa560f6af','[\"ROLE_USER\"]'),(6,'$2y$13$w6vxgwIOD0Yl0raGHtlwq.xstewwWrBYmlfnmMwCxyA7U1yFjR9lC','a@b.fr','A','B','C',10000,'v',0,'583d6896eddb3','[\"ROLE_USER\"]'),(7,'$2y$13$d8O5aHu.xVkT4jqNPiALZe2WWwjrR7k44s9BYi9s1.0RqooEMMq92','admin@admin.fr','admin','admin','admin',12000,'R',0,'583d693004190','[\"ROLE_ADMIN\"]');
+INSERT INTO `Utilisateur` VALUES (1,'$2y$13$ff5q2FCUUzSXJ5k1E4EU9e0VzYKJ3uLByMYoUv8xFffxFBP5TGMxG','kevin@limacher.fr','kevin','limacher','3 rue de la rue',60000,'rue',0,'583c37c258270','[\"ROLE_USER\"]'),(2,'$2y$13$wlKa8CYiV14rJ7kJ3QQIeuhaoGeZQGNnELNsuysMEA/tg0Ku.ouoq','kevin2@limacher.fr','kevin','limacher','3 rue de la rue',60000,'rue',0,'583c37e9b18e4','[\"ROLE_USER\"]'),(3,'$2y$13$61hNLVGxZD2Rxp8VMS5fju2EAn5KNxizr0O6Eo8p9.LqDgqJXU.hi','marlu@caniard.fr','marlu','caniard','3 rue de marlu',60000,'marlu',0,'583c386025577','[\"ROLE_USER\"]'),(4,'$2y$13$sD/Ojkl3ASXZxy.8aHMwHeF/E5lp8O5FDMQWD2Gy3TAIH4wUeTeOy','cladlink@live.fr','BOUTBOUL','Michael','15 rue des carrières',90000,'BELFORT',0,'583c3d7b4bf5a','[\"ROLE_USER\"]'),(5,'$2y$13$VAP2okuJgiNtDdkcGF3OJ.2GvZyE7QWmmLX/1GcfI2Z2xWF8lpUbG','tete@pied.fr','azerty','ty','2 rue de bbb',90000,'belfort',0,'583caa560f6af','[\"ROLE_USER\"]'),(6,'$2y$13$w6vxgwIOD0Yl0raGHtlwq.xstewwWrBYmlfnmMwCxyA7U1yFjR9lC','a@b.fr','A','B','C',10000,'v',0,'583d6896eddb3','[\"ROLE_USER\"]'),(7,'$2y$13$d8O5aHu.xVkT4jqNPiALZe2WWwjrR7k44s9BYi9s1.0RqooEMMq92','admin@admin.fr','admin','admin','admin',12000,'R',0,'583d693004190','[\"ROLE_ADMIN\"]'),(8,'$2y$13$MR5MbyC5gATJgC8fp.pTLuXU4TDpFALY3hzs.3ALElyjfYkbU1mVq','ezee@rzzr.fr','aaa','aaa','aaa',11111,'aa',0,'583ea109111be','[\"ROLE_USER\"]');
 /*!40000 ALTER TABLE `Utilisateur` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `commentaire_film`
+--
+
+DROP TABLE IF EXISTS `commentaire_film`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `commentaire_film` (
+  `id_comment_film` int(11) NOT NULL AUTO_INCREMENT,
+  `commentaire` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `filmId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_comment_film`),
+  KEY `IDX_6BBC7A70A1D6191D` (`filmId`),
+  CONSTRAINT `FK_6BBC7A70A1D6191D` FOREIGN KEY (`filmId`) REFERENCES `Film` (`idFilm`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `commentaire_film`
+--
+
+LOCK TABLES `commentaire_film` WRITE;
+/*!40000 ALTER TABLE `commentaire_film` DISABLE KEYS */;
+/*!40000 ALTER TABLE `commentaire_film` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -260,7 +288,7 @@ CREATE TABLE `migration_versions` (
 
 LOCK TABLES `migration_versions` WRITE;
 /*!40000 ALTER TABLE `migration_versions` DISABLE KEYS */;
-INSERT INTO `migration_versions` VALUES ('20161128142405'),('20161129223153'),('20161129224842'),('20161130081242'),('20161130084935'),('20161130100450');
+INSERT INTO `migration_versions` VALUES ('20161128142405'),('20161129223153'),('20161129224842'),('20161130081242'),('20161130084935'),('20161130100450'),('20161130131406');
 /*!40000 ALTER TABLE `migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -273,4 +301,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-30 10:05:04
+-- Dump completed on 2016-11-30 13:22:39

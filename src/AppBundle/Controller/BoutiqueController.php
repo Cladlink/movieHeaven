@@ -13,8 +13,10 @@ use AppBundle\Entity\Commande;
 use AppBundle\Entity\Film;
 use AppBundle\Entity\Panier;
 use AppBundle\Entity\Utilisateur;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/boutique")
@@ -143,5 +145,29 @@ class BoutiqueController extends Controller
 
         $films = $em->getRepository('AppBundle:Film')->findAll();
         return $this->render('users/boutique.html.twig', (['films' => $films]));
+    }
+    /**
+     * @Route("/commentFilm/{name}/notes", name="commentFilm")
+     * @Method("GET")
+     */
+    public function getNotesAction(CommentFilm $commentFilm)
+    {
+        $notes = [];
+
+        foreach ($genus->getNotes() as $note) {
+            $notes[] = [
+                'id' => $note->getId(),
+                'username' => $note->getUsername(),
+                'avatarUri' => '/images/'.$note->getUserAvatarFilename(),
+                'note' => $note->getNote(),
+                'date' => $note->getCreatedAt()->format('M d, Y')
+            ];
+        }
+
+        $data = [
+            'notes' => $notes
+        ];
+
+        return new JsonResponse($data);
     }
 }
