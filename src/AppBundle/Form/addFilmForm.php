@@ -31,7 +31,6 @@ class addFilmForm extends AbstractType
             ->add('imageFilm', FileType::class)
             ->add('typeFilmId')
             ->add('realisateurId');
-
     }
 
     public function configureOptions(OptionsResolver $resolver)

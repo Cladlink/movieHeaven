@@ -17,10 +17,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/admin")
+ */
 class AdminController extends Controller
 {
     /**
-     * @Route("/admin", name="gestion")
+     * @Route("/", name="gestion")
      */
     public function accueilGestion()
     {
@@ -28,7 +31,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/gestionFilms", name="gestionFilms")
+     * @Route("/gestionFilms", name="gestionFilms")
      */
     public function gestionFilms()
     {
@@ -38,7 +41,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/gestionRealisateurs", name="gestionRealisateurs")
+     * @Route("/gestionRealisateurs", name="gestionRealisateurs")
      */
     public function gestionRealisateur()
     {
@@ -48,7 +51,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/gestionTypesFilm", name="gestionTypesFilm")
+     * @Route("/gestionTypesFilm", name="gestionTypesFilm")
      */
     public function gestionTypesFilm()
     {
@@ -58,7 +61,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/nouveauFilm", name="ajouterNouveauFilm")
+     * @Route("/nouveauFilm", name="ajouterNouveauFilm")
      */
     public function nouveauFilm(Request $request)
     {
@@ -93,7 +96,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/nouveauRealisateur", name="ajouterNouveauRealisateur")
+     * @Route("/nouveauRealisateur", name="ajouterNouveauRealisateur")
      */
     public function nouveauRealisateur(Request $request)
     {
@@ -117,7 +120,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/nouveauTypeFilm", name="ajouterNouveauType")
+     * @Route("/nouveauTypeFilm", name="ajouterNouveauType")
      */
     public function nouveauType(Request $request)
     {
