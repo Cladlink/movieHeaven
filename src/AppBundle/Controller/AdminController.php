@@ -73,9 +73,7 @@ class AdminController extends Controller
              */
             $film = $form->getData();
 
-            /**
-             * @var UploadedFile $file
-             */
+            /** @var UploadedFile $file */
             $file = $film->getImageFilm();
             $fileName = $film->getTitreFilm().'.'.$file->guessExtension();
             $file->move(
@@ -131,8 +129,6 @@ class AdminController extends Controller
         {
 
             $type = $form->getData();
-            /** @var UploadedFile $file */
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($type);
             $em->flush();

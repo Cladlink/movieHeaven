@@ -50,12 +50,6 @@ class Commande
      */
     private $etatId;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Panier")
-     * @ORM\JoinColumn(name="panierId", referencedColumnName="idPanier")
-     */
-    private $panierId;
-
     /*
      * getters and setters
      */

@@ -45,6 +45,14 @@ class Panier
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="Commande")
+     * @ORM\JoinColumn(name="commandeId", referencedColumnName="idCommande")
+     */
+    private $commandeId;
+
+
+
+    /**
      * getters and setters
      */
     public function getIdPanier() { return $this->idPanier; }
