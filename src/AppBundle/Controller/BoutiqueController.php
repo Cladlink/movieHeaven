@@ -54,7 +54,7 @@ class BoutiqueController extends Controller
         $em = $this->getDoctrine()->getManager();
         $utilisateur = $this->getUser();
         $etat = $em->getRepository('AppBundle:EtatCommande')
-            ->findOneBy(['libelleEtatCommande' => 'Pas commande']);
+            ->findOneBy(['libelleEtatCommande' => 'Pas commandee']);
         $commandeConcernee = $em->getRepository('AppBundle:Commande')
             ->findOneBy(['utilisateurId' => $utilisateur, 'etatId' => $etat]);
         $contenu = $em->getRepository('AppBundle:Panier')
@@ -70,7 +70,7 @@ class BoutiqueController extends Controller
         $em = $this->getDoctrine()->getManager();
         $utilisateur = $this->getUser();
         $etat = $em->getRepository('AppBundle:EtatCommande')
-            ->findOneBy(['libelleEtatCommande' => 'Pas commande']);
+            ->findOneBy(['libelleEtatCommande' => 'Pas commandee']);
         $commandeConcernee = $em->getRepository('AppBundle:Commande')
             ->findOneBy(['utilisateurId' => $utilisateur, 'etatId' => $etat]);
         if(!$commandeConcernee)
@@ -120,7 +120,7 @@ class BoutiqueController extends Controller
         $em = $this->getDoctrine()->getManager();
         $utilisateur = $this->getUser();
         $etat = $em->getRepository('AppBundle:EtatCommande')
-            ->findOneBy(['libelleEtatCommande' => 'Pas commande']);
+            ->findOneBy(['libelleEtatCommande' => 'Pas commandee']);
         $commande = $em->getRepository('AppBundle:Commande')
             ->findOneBy(['utilisateurId' => $utilisateur, 'etatId' => $etat]);
         if($commande != null)

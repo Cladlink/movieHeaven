@@ -50,10 +50,18 @@ class Commande
      */
     private $etatId;
 
+    /**
+     * @return mixed
+     */
+    public function getIdCommande()
+    {
+        return $this->idCommande;
+    }
+
     /*
      * getters and setters
      */
-    public function setIdCommande($idCommande) { $this->idCommande = $idCommande; }
+
     public function getPrixCommande() { return $this->prixCommande; }
     public function setPrixCommande($prixCommande) { $this->prixCommande = $prixCommande; }
     public function getDateCommande() { return $this->dateCommande; }

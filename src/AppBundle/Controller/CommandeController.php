@@ -41,7 +41,8 @@ class CommandeController extends Controller
         $em->persist($commandeAValider);
         $em->flush();
 
-        return $this->render(':commande:gestionCommandes.html.twig');
+        $commandes = $em->getRepository('AppBundle:Commande')->findAll();
+        return $this->render('commande/gestionCommandes.html.twig', (['commandes' => $commandes]));
 
     }
 
@@ -51,8 +52,7 @@ class CommandeController extends Controller
     public function ficheCommande($idCommande)
     {
         $em = $this->getDoctrine()->getManager();
-        $commandeAAfficher = $em->getRepository('AppBundle:Commande')->findOneBy(['idCommande' => $idCommande]);
         $paniersDeLaCommande = $em->getRepository('AppBundle:Panier')->findBy(['commandeId' => $idCommande]);
-
+        return $this->render('commande/ficheCommande.html.twig', (['paniers' => $paniersDeLaCommande]));
     }
 }

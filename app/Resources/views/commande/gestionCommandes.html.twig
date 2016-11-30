@@ -24,8 +24,8 @@
                             <td>{{commande.prixCommande}}</td>
                             <td>{{commande.dateCommande|date('Y-m-d')}}</td>
                             <td>{{commande.etatId.libelleEtatCommande}}</td>
-                            <td><a href="{{ path('ficheCommande') }}">Détails de la commande</a></td>
-                            <td><a href="{{ path('validerCommande') }}">Valider</a></td>
+                            <td><a href="{{ path('ficheCommande', {'idCommande': commande.idCommande}) }}">Détails de la commande</a></td>
+                            <td><a href="{{ path('validerCommande', {'idCommande': commande.idCommande}) }}">Valider</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
