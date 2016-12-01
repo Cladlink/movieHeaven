@@ -24,8 +24,17 @@
                             <td>{{commande.prixCommande}}</td>
                             <td>{{commande.dateCommande|date('Y-m-d')}}</td>
                             <td>{{commande.etatId.libelleEtatCommande}}</td>
-                            <td><a href="{{ path('ficheCommande', {'commande': commande.idCommande}) }}">Détails de la commande</a></td>
-                            <td><a href="{{ path('validerCommande', {'commande': commande.idCommande}) }}">Valider</a></td>
+                            {% if(commande.etatId.libelleEtatCommande == "Pas commandee"
+                                    or commande.etatId.libelleEtatCommande == "En attente d expedition") %}
+                                <td><a href="{{ path('ficheCommande', {'commande': commande.idCommande}) }}">Détails de la commande</a></td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                            {% if commande.etatId.libelleEtatCommande == "En attente d expedition" %}
+                                <td><a href="{{ path('validerCommande', {'commande': commande.idCommande}) }}">Valider</a></td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>

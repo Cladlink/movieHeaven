@@ -34,11 +34,16 @@
                             <td>{{film.prixFilm}}</td>
                             <td>{{film.quantiteFilm}}</td>
                             <td><a href="#">modifier</a></td>
-                            <td><a href="{{ path('suppFilmBDD', {film: film.id}) }}"><img width="50px" src="{{ asset('images/supprimer.png') }}"></a></td>
+                            <td><a href="{{ path('suppFilmBDD', {'film': film.idFilm}) }}"><img width="50px" src="{{ asset('images/supprimer.png') }}"></a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+                {% if erreur is defined and erreur != false %}
+                    <script type="text/javascript">
+                        alert("{{ erreur }}");
+                    </script>
+                {% endif %}
             </div>
         </div>
     </div>
