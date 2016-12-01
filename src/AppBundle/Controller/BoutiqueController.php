@@ -94,7 +94,10 @@ class BoutiqueController extends Controller
                 if($panier->getQuantitePanier()+1 > $filmAAjouter->getQuantiteFilm())
                 {
                     $films = $em->getRepository('AppBundle:Film')->findAll();
-                    return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'erreur' => true]));
+                    return $this->render('Boutique/boutique.html.twig', ([
+                        'films' => $films,
+                        'erreur' => "Plus assez d objets en stock"
+                    ]));
                 }
                 $panier->setQuantitePanier($panier->getQuantitePanier()+1);
                 $em->persist($panier);
@@ -116,7 +119,7 @@ class BoutiqueController extends Controller
             $em->flush();
             return $this->render('Boutique/boutique.html.twig', (['films' => $films]));
         }
-        return $this->render('Boutique/boutique.html.twig',(['films' => $films, 'erreur' => true]));
+        return $this->render('Boutique/boutique.html.twig',(['films' => $films, 'erreur' => "Plus assez d objets en stock"]));
     }
 
     /**
@@ -136,6 +139,11 @@ class BoutiqueController extends Controller
             // Calcul du montant total de la commande
             $paniers = $em->getRepository('AppBundle:Panier')
                 ->findBy(['utilisateurId' => $utilisateur->getIdUtilisateur(), 'commandeId' => $commande]);
+            if($paniers == null)
+            {
+                $films = $em->getRepository('AppBundle:Film')->findAll();
+                return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'erreur' => "La commande est vide"]));
+            }
             $prixTotal = 0;
             foreach ($paniers as $key => $panier)
             {
@@ -161,11 +169,11 @@ class BoutiqueController extends Controller
         }
         else
         {
-            $erreur = true;
+            $erreur = "La commande est vide";
         }
 
         $films = $em->getRepository('AppBundle:Film')->findAll();
-        return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'commandeEmpty' => $erreur]));
+        return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'erreur' => $erreur]));
     }
     /**
      * @Route("/commentFilm/{name}/notes", name="commentFilm")
@@ -217,7 +225,7 @@ class BoutiqueController extends Controller
         {
             $contenu = $em->getRepository('AppBundle:Panier')
                 ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
-            return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu, 'erreur' => true]));
+            return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu, 'erreur' => "Plus assez d objets en stock"]));
         }
 
         $panier->setQuantitePanier($quantiteActuelle+1);
@@ -268,5 +276,34 @@ class BoutiqueController extends Controller
         $contenu = $em->getRepository('AppBundle:Panier')
             ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
         return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu]));
+    }
+
+    /**
+     * @Route("/panier/supprimer/{film}", name="supprimerDuPanier")
+     */
+    public function supprimerDuPanier(Film $film)
+    {
+        $erreur = false;
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $this->getUser();
+        $etat = $em->getRepository('AppBundle:EtatCommande')
+            ->findOneBy(['libelleEtatCommande' => 'Pas commandee']);
+        $commande = $em->getRepository('AppBundle:Commande')
+            ->findOneBy(['etatId' => $etat, 'utilisateurId' => $utilisateur]);
+        $panierASupprimer = $em->getRepository('AppBundle:Panier')->findOneBy([
+            'utilisateurId' => $utilisateur,
+            'commandeId' => $commande,
+            'filmId' => $film
+        ]);
+
+        if($panierASupprimer == null)
+            $erreur = "Ce produit n est pas dans votre panier";
+
+        $em->remove($panierASupprimer);
+        $em->flush();
+
+        $contenu = $em->getRepository('AppBundle:Panier')
+            ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
+        return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu, 'erreur' => $erreur]));
     }
 }

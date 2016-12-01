@@ -31,16 +31,15 @@
                             <td><a href="{{ path('moins', {'idFilm': panier.filmId.idFilm}) }}" style="font-size: 50px">-</a></td>
                             <td>{{panier.quantitePanier}}</td>
                             <td><a href="{{ path('plus', {'idFilm': panier.filmId.idFilm}) }}" style="font-size: 25px">+</a></td>
-                            <td>supprimer</td>
-                            {#<td><a href="{{ path('supprimerProduitPanier', {'film': film.id}) }}"><img width="30px" src="{{ asset('images/supprimer.png') }}" alt="Supprimer"></a></td>#}
+                            <td><a href="{{ path('supprimerDuPanier', {'film': panier.filmId.idFilm}) }}"><img width="30px" src="{{ asset('images/supprimer.png') }}"></a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
                 <a href="{{ path('commander') }}">Valider la commande</a>
-                {% if erreur is defined and erreur == true %}
+                {% if erreur is defined and erreur != false %}
                     <script type="text/javascript">
-                        alert("Plus assez d'objets en stock.");
+                        alert("{{ erreur }}");
                     </script>
                 {% endif %}
             </div>
