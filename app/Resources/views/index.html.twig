@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
-    {% block body %}
-        <div class="container">
-            <h2>Movie shop</h2>
-            <p>mettre ici une for loop</p>
-            <h2>what's new</h2>
-            <p>mettre les news ici stockée dans la bdd si possible</p>
-        </div>
-    {% endblock %}
+{% block body %}
+    <div class="container">
+        <h2>Movie shop</h2>
+        <p>mettre ici une for loop</p>
+        <h2>what's new</h2>
+        <p>mettre les news ici stockée dans la bdd si possible</p>
+    </div>
+    {% if erreur is defined and erreur != false %}
+        <script type="text/javascript">
+            alert("{{ erreur }}");
+        </script>
+    {% endif %}
+{% endblock %}
