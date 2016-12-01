@@ -28,9 +28,9 @@
                             <td>{{panier.filmid.dureeFilm}}</td>
                             <td>{{panier.filmId.dateFilm|date('Y-m-d')}}</td>
                             <td>{{panier.filmId.prixFilm}}</td>
-                            <td><a href="{{ path('moins', {'idFilm': panier.filmId.idFilm}) }}" style="font-size: 50px">-</a></td>
+                            <td><a href="{{ path('moins', {'film': panier.filmId.idFilm}) }}" style="font-size: 50px">-</a></td>
                             <td>{{panier.quantitePanier}}</td>
-                            <td><a href="{{ path('plus', {'idFilm': panier.filmId.idFilm}) }}" style="font-size: 25px">+</a></td>
+                            <td><a href="{{ path('plus', {'film': panier.filmId.idFilm}) }}" style="font-size: 25px">+</a></td>
                             <td><a href="{{ path('supprimerDuPanier', {'film': panier.filmId.idFilm}) }}"><img width="30px" src="{{ asset('images/supprimer.png') }}"></a></td>
                         </tr>
                     {% endfor %}

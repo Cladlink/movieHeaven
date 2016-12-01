@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Commande;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -29,16 +30,15 @@ class CommandeController extends Controller
     }
 
     /**
-     * @Route("/validerCommande/{idCommande}", name="validerCommande")
+     * @Route("/validerCommande/{commande}", name="validerCommande")
      */
-    public function validerCommande($idCommande)
+    public function validerCommande(Commande $commande)
     {
         $em = $this->getDoctrine()->getManager();
-        $commandeAValider = $em->getRepository('AppBundle:Commande')->findOneBy(['idCommande' => $idCommande]);
         $etat = $em->getRepository('AppBundle:EtatCommande')->findOneBy(['libelleEtatCommande' => 'Expediee']);
-        $commandeAValider->setEtatId($etat);
+        $commande->setEtatId($etat);
 
-        $em->persist($commandeAValider);
+        $em->persist($commande);
         $em->flush();
 
         $commandes = $em->getRepository('AppBundle:Commande')->findAll();
@@ -47,12 +47,12 @@ class CommandeController extends Controller
     }
 
     /**
-     * @Route("/ficheCommande/{idCommande}", name="ficheCommande")
+     * @Route("/ficheCommande/{commande}", name="ficheCommande")
      */
-    public function ficheCommande($idCommande)
+    public function ficheCommande(Commande $commande)
     {
         $em = $this->getDoctrine()->getManager();
-        $paniersDeLaCommande = $em->getRepository('AppBundle:Panier')->findBy(['commandeId' => $idCommande]);
+        $paniersDeLaCommande = $em->getRepository('AppBundle:Panier')->findBy(['commandeId' => $commande]);
         return $this->render('commande/ficheCommande.html.twig', (['paniers' => $paniersDeLaCommande]));
     }
 

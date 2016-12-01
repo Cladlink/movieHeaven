@@ -141,4 +141,16 @@ class AdminController extends Controller
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/supprimerFilmBDD/{film}", name="suppFilmBDD")
+     */
+    public function supprimerFilm(Film $film)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($film);
+        $em->flush();
+        $films = $em->getRepository('AppBundle:Film')->findAll();
+        return $this->render('admin/gestionFilms.html.twig', (['films' => $films]));
+    }
 }

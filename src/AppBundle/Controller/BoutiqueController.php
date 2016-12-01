@@ -202,9 +202,9 @@ class BoutiqueController extends Controller
     }
 
     /**
-     * @Route("/panier/plusQuantite/{idFilm}", name="plus")
+     * @Route("/panier/plusQuantite/{film}", name="plus")
      */
-    public function augmenterQuantite($idFilm)
+    public function augmenterQuantite(Film $film)
     {
         $em = $this->getDoctrine()->getManager();
         $utilisateur = $this->getUser();
@@ -212,8 +212,6 @@ class BoutiqueController extends Controller
             ->findOneBy(['libelleEtatCommande' => 'Pas commandee']);
         $commande = $em->getRepository('AppBundle:Commande')
             ->findOneBy(['etatId' => $etat, 'utilisateurId' => $utilisateur]);
-        $film = $em->getRepository('AppBundle:Film')
-            ->findOneBy(['idFilm' => $idFilm]);
         $panier = $em->getRepository('AppBundle:Panier')->findOneBy([
             'filmId' => $film,
             'utilisateurId' => $utilisateur,
@@ -239,9 +237,9 @@ class BoutiqueController extends Controller
     }
 
     /**
-     * @Route("/panier/moinsQuantite/{idFilm}", name="moins")
+     * @Route("/panier/moinsQuantite/{film}", name="moins")
      */
-    public function reduireQuantite($idFilm)
+    public function reduireQuantite(Film $film)
     {
         $em = $this->getDoctrine()->getManager();
         $utilisateur = $this->getUser();
@@ -249,8 +247,6 @@ class BoutiqueController extends Controller
             ->findOneBy(['libelleEtatCommande' => 'Pas commandee']);
         $commande = $em->getRepository('AppBundle:Commande')
             ->findOneBy(['etatId' => $etat, 'utilisateurId' => $utilisateur]);
-        $film = $em->getRepository('AppBundle:Film')
-            ->findOneBy(['idFilm' => $idFilm]);
         $panier = $em->getRepository('AppBundle:Panier')->findOneBy([
             'filmId' => $film,
             'utilisateurId' => $utilisateur,
