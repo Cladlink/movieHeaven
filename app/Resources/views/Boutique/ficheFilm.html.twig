@@ -3,10 +3,9 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12" id="ficheFilm">
-                <h2>Fiche du film <b>{{ films.titreFilm }}</b></h2>
+                <h2><b>{{ films.titreFilm }}</b></h2>
                <img src="{{asset('images/uploaded/' ~ films.imageFilm)}}">
                 <div class="attributsFilm">
-                <div class="titreDuFilm"><span>Titre : </span>{{films.titreFilm}}</div>
                 <div class="realFilm"><span>Réalisateur : </span>{{ films.realisateurId.nomRealisateur }}</div>
                 <div class="dureeFilm"><span>Durée : </span>{{films.dureeFilm}} min</div>
                 <div class="dateFilm"><span>Date de sortie : </span>{{films.dateFilm|date('Y-m-d')}}</div>
