@@ -14,8 +14,6 @@
                     {% endfor %}
                     </select>
                 </label>
-                <table cellspacing="60">
-                    
                     <ul class="listefilm">
                         {% for film in films if films is not empty %}
                             <li id="{{ film.typeFilmId.libelleTypeFilm }}" class="listeATrier">
@@ -39,8 +37,6 @@
                         {% endfor %}
                     </ul>
                     <br>
-                    </tbody>
-                </table>
                 {% if erreur is defined and erreur != false %}
                     <script type="text/javascript">
                         alert("{{ erreur }}");
@@ -67,5 +63,5 @@
             $('li#Fantastique').show();
         }
     });
-</script>
+    </script>
 {% endblock %}
