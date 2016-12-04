@@ -5,24 +5,24 @@ body {
     background-color: #eeeeee;
 }
 
-.affichagePanier tr th{
+.affichagePanier tr th, .gestionFilm tr th, .gestionCommandes tr th, .ficheCommande tr th{
     text-align: center;
     font-size: 20px;
 }
 
-.affichagePanier tr td{
+.affichagePanier tr td, .gestionFilm tr td, .gestionCommandes tr td, .ficheCommande tr td{
     padding-bottom: 20px;
     padding-top: 20px;
     border-bottom: 1px double grey;
 }
 
-.affichagePanier tr .prixFilm{
+.affichagePanier tr .prixFilm, .gestionFilm tr .prixFilm{
     text-align: center;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-.affichagePanier tr .quantiteFilm{
+.affichagePanier tr .quantiteFilm, .gestionFilm tr .quantiteFilm{
     text-align: center;
 }
 
@@ -38,8 +38,60 @@ body {
     padding-left: 20px;
 }
 .titreFilm{
+    text-align: left;
     padding-left: 7px;
 }
+.gestionFilm tr td a{
+    padding-left: 50px;
+}
+.gestionFilm tr th, .gestionCommandes tr th{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.gestionFilm tr td, .gestionCommandes tr td, .ficheCommande tr td{
+    text-align: center;
+}
+
+.gestionCommandes tr td, .ficheCommande tr td{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#ficheFilm img{
+    float: left;
+    width: 150px;
+    height: auto;
+    padding-top: 20px;
+    padding-bottom: 60px;
+}
+.attributsFilm{
+    padding-top: 30px;
+}
+#ficheFilm div span{
+    padding-left: 30px ;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(115, 115, 115);
+}
+
+#ficheFilm div {
+    font-size: 20px;
+}
+
+.commentairePar{
+    font-size: 18px;
+}
+.commentaire{
+    padding-left: 30px;
+    padding-bottom: 10px;
+    font-style: italic;
+}
+.formCommentaire{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+
 
 .infoboutique{
     float: left;
@@ -753,7 +805,9 @@ FOOTER Styling
 *******************************/
 
 .footer {
-    padding: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 7px;
     background: #E9D4B7;
     font-size: 1.3em;
     margin-top: 40px;

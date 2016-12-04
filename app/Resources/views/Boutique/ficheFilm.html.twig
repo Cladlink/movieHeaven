@@ -2,27 +2,32 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                <h2>Fiche du film {{ films.titreFilm }}</h2>
-                <img width="60px" src="{{asset('images/uploaded/' ~ films.imageFilm)}}">
-                {{films.titreFilm}}
-                {{films.dureeFilm}}
-                {{films.dateFilm|date('Y-m-d')}}
-                {{films.prixFilm}}
-                {{films.quantiteFilm}}<br><br><br>
-                {% for commentaire in commentaires if commentaires is not empty %}
-                    {{ commentaire.utilisateurId.nomUtilisateur }}<br>
-                    {{ commentaire.commentaire }}<br><br>
-                {% endfor %}
-            </div>
+            <div class="col-xs-12" id="ficheFilm">
+                <h2>Fiche du film <b>{{ films.titreFilm }}</b></h2>
+               <img src="{{asset('images/uploaded/' ~ films.imageFilm)}}">
+                <div class="attributsFilm">
+                <div class="titreDuFilm"><span>Titre : </span>{{films.titreFilm}}</div>
+                <div class="realFilm"><span>Réalisateur : </span>{{ films.realisateurId.nomRealisateur }}</div>
+                <div class="dureeFilm"><span>Durée : </span>{{films.dureeFilm}} min</div>
+                <div class="dateFilm"><span>Date de sortie : </span>{{films.dateFilm|date('Y-m-d')}}</div>
+                <div class="quantiteDuFilm"><span>Quantité disponible : </span>{{films.quantiteFilm}}</div>
+                <div class="prixFilm"><span>Prix : </span>{{films.prixFilm}}€</div></div>
+               </div>
+            <h2>Commentaires</h2>
+            {% for commentaire in commentaires if commentaires is not empty %}
+                <div class="commentairePar">Par <b>{{ commentaire.utilisateurId.nomUtilisateur }} :</b></div>
+                <div class="commentaire">{{ commentaire.commentaire }}</div><br><br>
+            {% endfor %}
         </div>
     </div>
+    <div class="formCommentaire">
         {{ form_start(form)}}
             {{ form_errors(form) }}
             {{ form_row(form.commentaire)}}
             {{ form_rest(form) }}
     <input type="submit" value="{{ 'Submit'}}" />
         {{ form_end(form) }}
+    </div>
 
 
 

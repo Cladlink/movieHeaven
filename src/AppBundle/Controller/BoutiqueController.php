@@ -34,9 +34,6 @@ class BoutiqueController extends Controller
          $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid())
          {
-             /**
-              * @var CommentaireFilm $commentairefilm
-              */
              $commentairefilm = $form->getData()['commentaire'];
              $nouveauCommentaireFilm = new CommentaireFilm();
              $nouveauCommentaireFilm->setFilmId($idFilm);
