@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h2>Gestion des films</h2>
+                <h2>Commandes</h2>
                 <table cellspacing="60">
                     <caption>Liste des commandes</caption>
                     <thead>
@@ -21,7 +21,9 @@
                             <td>{{commande.dateCommande|date('Y-m-d')}}</td>
                             <td>{{commande.prixCommande}}</td>
                             <td>{{commande.etatId.libelleEtatCommande}}</td>
-                            <td><a href="{{ path('ficheCommande', {'commande': commande.idCommande}) }}">Détails de la commande</a></td>
+                            {% if commande.etatId.libelleEtatCommande != "Expediee" %}
+                                <td><a href="{{ path('ficheCommande', {'commande': commande.idCommande}) }}">Détails de la commande</a></td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>

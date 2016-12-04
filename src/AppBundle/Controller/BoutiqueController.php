@@ -28,7 +28,7 @@ class BoutiqueController extends Controller
      */
      public function ficheFilmAction(Request $request, Film $idFilm)
      {
-         $em = $this->getDoctrine()->getEntityManager();
+         $em = $this->getDoctrine()->getManager();
 
          $form = $this->createForm(CommentForm::class);
          $form->handleRequest($request);
@@ -103,6 +103,7 @@ class BoutiqueController extends Controller
     public function ajouterAuPanier(Film $film)
     {
         $em = $this->getDoctrine()->getManager();
+        $typeFilm = $em->getRepository('AppBundle:TypeFilm')->findAll();
         $utilisateur = $this->getUser();
         $etat = $em->getRepository('AppBundle:EtatCommande')
             ->findOneBy(['libelleEtatCommande' => 'Pas commandee']);
@@ -138,7 +139,7 @@ class BoutiqueController extends Controller
                 $em->persist($panier);
                 $em->flush();
                 $films = $em->getRepository('AppBundle:Film')->findAll();
-                return $this->render('Boutique/boutique.html.twig', ['films' => $films]);
+                return $this->render('Boutique/boutique.html.twig', ['films' => $films, 'typeFilm' => $typeFilm]);
             }
         }
         $films = $em->getRepository('AppBundle:Film')->findAll();
@@ -152,9 +153,10 @@ class BoutiqueController extends Controller
 
             $em->persist($liaison);
             $em->flush();
-            return $this->render('Boutique/boutique.html.twig', (['films' => $films]));
+            return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'typeFilm' => $typeFilm]));
         }
-        return $this->render('Boutique/boutique.html.twig',(['films' => $films, 'erreur' => "Plus assez d objets en stock"]));
+
+        return $this->render('Boutique/boutique.html.twig',(['films' => $films, 'erreur' => "Plus assez d objets en stock", 'typeFilm' => $typeFilm]));
     }
 
     /**
@@ -163,6 +165,7 @@ class BoutiqueController extends Controller
     public function commander()
     {
         $em = $this->getDoctrine()->getManager();
+        $typeFilm = $em->getRepository('AppBundle:TypeFilm')->findAll();
         $utilisateur = $this->getUser();
         $etat = $em->getRepository('AppBundle:EtatCommande')
             ->findOneBy(['libelleEtatCommande' => 'Pas commandee']);
@@ -177,7 +180,7 @@ class BoutiqueController extends Controller
             if($paniers == null)
             {
                 $films = $em->getRepository('AppBundle:Film')->findAll();
-                return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'erreur' => "La commande est vide"]));
+                return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'erreur' => "La commande est vide", 'typeFilm' => $typeFilm]));
             }
             $prixTotal = 0;
             foreach ($paniers as $key => $panier)
@@ -208,7 +211,7 @@ class BoutiqueController extends Controller
         }
 
         $films = $em->getRepository('AppBundle:Film')->findAll();
-        return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'erreur' => $erreur]));
+        return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'erreur' => $erreur, 'typeFilm' => $typeFilm]));
     }
 
     /**

@@ -5,6 +5,42 @@ body {
     background-color: #eeeeee;
 }
 
+.affichagePanier tr th{
+    text-align: center;
+    font-size: 20px;
+}
+
+.affichagePanier tr td{
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-bottom: 1px double grey;
+}
+
+.affichagePanier tr .prixFilm{
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.affichagePanier tr .quantiteFilm{
+    text-align: center;
+}
+
+.affichagePanier tr td a{
+    text-decoration: none;
+}
+.plus{
+    text-align: left;
+    padding-right: 50px;
+}
+.moins{
+    text-align: right;
+    padding-left: 20px;
+}
+.titreFilm{
+    padding-left: 7px;
+}
+
 .infoboutique{
     float: left;
 }
@@ -23,13 +59,6 @@ body {
     display: block;
     float: left;
 }
-.listefilm li div{
-
-}
-.titre{
-
-}
-
 .sidebar-nav {
     padding: 9px 0;
 }
