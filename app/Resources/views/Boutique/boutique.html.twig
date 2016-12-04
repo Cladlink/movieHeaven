@@ -6,42 +6,39 @@
                 <h2>Boutique</h2>
                 <label>
                     <select name="trierPar" id="trierPar">
-                        <option value=""></option>
+                        <option value="tous" selected> Tous</option>
+                    {% for tf in typeFilm %}
+                        <option id="{{ tf.libelleTypeFilm }}" value="{{ tf.libelleTypeFilm }}">
+                            {{ tf.libelleTypeFilm }}
+                        </option>
+                    {% endfor %}
                     </select>
                 </label>
                 <table cellspacing="60">
-                    <caption>Liste des films</caption>
-                    <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Titre</th>
-                        <th>Durée</th>
-                        <th>Date de sortie</th>
-                        <th>Prix</th>
-                        <th>Quantité disponible</th>
-                        <th>Quantité à commander</th>
-                        <th>Ajouter au panier</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for film in films if films is not empty %}
-                        <tr>
-                            <td><a href="{{ path('ficheFilm', {'idFilm': film.idFilm}) }}">
-                                    <img width="60px" src="{{asset('images/uploaded/' ~ film.imageFilm)}}"/>
+                    
+                    <ul class="listefilm">
+                        {% for film in films if films is not empty %}
+                            <li id="{{ film.typeFilmId.libelleTypeFilm }}" class="listeATrier">
+                                <a href="{{ path('ficheFilm', {'idFilm': film.idFilm}) }}">
+                                    <img width="90px" src="{{asset('images/uploaded/' ~ film.imageFilm)}}"/>
                                 </a>
-                            </td>
-                            <td>{{film.titreFilm}}</td>
-                            <td>{{film.dureeFilm}}</td>
-                            <td>{{film.dateFilm|date('Y-m-d')}}</td>
-                            <td>{{film.prixFilm}}</td>
-                            <td>{{film.quantiteFilm}}</td>
-                            <td>
-                                <a href="{{ path('ajouterPanier', {'film': film.idFilm}) }}">
-                                    <img width="50px" src="{{ asset('images/addCart.png') }}" alt="Ajouter">
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+                                <div class="infoboutique">
+                                <h2 class="titre">{{film.titreFilm}}</h2>
+
+                                    <div class="prix">Prix : {{film.prixFilm}}</div>
+                                    {% if film.quantiteFilm > 0 %}
+                                    <div class="quantite">quantité dispo :{{film.quantiteFilm}}</div>
+                                    <a href="{{ path('ajouterPanier', {'film': film.idFilm}) }}">
+                                        <img width="50px" src="{{ asset('images/addCart.png') }}" alt="Ajouter">
+                                    </a>
+                                    {% else %}
+                                        RUPTURE DE STOCK
+                                    {% endif %}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <br>
                     </tbody>
                 </table>
                 {% if erreur is defined and erreur != false %}
@@ -52,4 +49,23 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('select[name="trierPar"]').change(function()
+    {
+        var id = $(this).val();
+        $('li#Action').hide();
+        $('li#Science-fiction').hide();
+        $('li#Fantastique').hide();
+        $('li#' +id).show();
+        if (id == 'tous')
+        {
+            $('li#Action').show();
+            $('li#Science-fiction').show();
+            $('li#Fantastique').show();
+        }
+    });
+</script>
 {% endblock %}

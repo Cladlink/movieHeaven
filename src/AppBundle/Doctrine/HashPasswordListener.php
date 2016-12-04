@@ -26,17 +26,16 @@ class HashPasswordListener implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        return ['prePersist', 'preUpdated'];
+        return ['prePersist', 'preUpdate'];
     }
 
     public function preUpdate(LifecycleEventArgs $args)
     {
-        /**
-         * @var Utilisateur $entity
-         */
+
         $entity = $args->getEntity();
-        /*if (!$entity instanceof Utilisateur)
-            return;*/
+
+        if (!$entity instanceof Utilisateur)
+            return;
 
         $this->encodePassword($entity);
         // necessary to force the update to see the change

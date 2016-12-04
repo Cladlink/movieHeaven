@@ -31,6 +31,12 @@ security:
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
 
     access_control:
-        - { path: ^/cart, roles: ROLE_ADMIN }
-        - { path: ^/cart, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/boutique, roles: ROLE_USER }
+        - { path: ^/accountManager/edit, roles: ROLE_USER }
+        - { path: ^/commande/gestionCommande, roles: ROLE_ADMIN }
+        - { path: ^/commande/validerCommande, roles: ROLE_ADMIN }
+        - { path: ^/commande/ficheCommande, roles: [ROLE_ADMIN, ROLE_USER] }
+        - { path: ^/commande/afficherCommandes, roles: ROLE_USER }
+
+

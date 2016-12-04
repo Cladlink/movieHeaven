@@ -4,29 +4,49 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2>Fiche du film {{ films.titreFilm }}</h2>
-                        <img width="60px" src="{{asset('images/uploaded/' ~ films.imageFilm)}}">
-                    {{films.titreFilm}}
-                    {{films.dureeFilm}}
-                    {{films.dateFilm|date('Y-m-d')}}
-                    {{films.prixFilm}}
-                    {{films.quantiteFilm}}
+                <img width="60px" src="{{asset('images/uploaded/' ~ films.imageFilm)}}">
+                {{films.titreFilm}}
+                {{films.dureeFilm}}
+                {{films.dateFilm|date('Y-m-d')}}
+                {{films.prixFilm}}
+                {{films.quantiteFilm}}<br><br><br>
+                {% for commentaire in commentaires if commentaires is not empty %}
+                    {{ commentaire.utilisateurId.nomUtilisateur }}<br>
+                    {{ commentaire.commentaire }}<br><br>
+                {% endfor %}
             </div>
         </div>
     </div>
+        {{ form_start(form)}}
+            {{ form_errors(form) }}
+            {{ form_row(form.commentaire)}}
+            {{ form_rest(form) }}
+    <input type="submit" value="{{ 'Submit'}}" />
+        {{ form_end(form) }}
+
+
+
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-
-    <script type="text/babel" src="{{ asset('js/notes.react.js') }}"></script>
-    <script type="text/babel">
-        var notesUrl = '{{ path('commentFilm', {'name': CommentFilm.name}) }}';
-
-        ReactDOM.render(
-                <NoteSection url={notesUrl} />,
-            document.getElementById('js-notes-wrapper')
-        );
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/tinymce/jquery.tinymce.min.js')}}"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: 'textarea',
+            height: 100,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code'
+            ],
+            toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_css: '//www.tinymce.com/css/codepen.min.css'
+        });
     </script>
 {% endblock %}

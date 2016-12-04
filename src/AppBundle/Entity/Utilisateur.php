@@ -26,8 +26,8 @@ class Utilisateur implements  UserInterface
      * @ORM\Column(type="string", name="password")
      */
     private $password;
+
     /**
-     *
      * @Assert\NotBlank()
      */
     private $plainPassword;
@@ -133,7 +133,7 @@ class Utilisateur implements  UserInterface
         $this->plainPassword = $plainPassword;
         // guarentees that the entity looks "dirty" to doctrine
         // when changing the plainPassword
-        $this->passwordUser = null;
+        $this->password = null;
     }
     public function eraseCredentials() { $this->plainPassword = null; }
 

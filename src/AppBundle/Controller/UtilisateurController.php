@@ -91,15 +91,13 @@ class UtilisateurController extends Controller
             $em = $this->getDoctrine()->getManager();
             /** @var Utilisateur $user */
             $user = $form->getData();
+
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'Compte mis à jour!');
-            return $this->get('security.authentication.guard_handler')
-                ->authenticateUserAndHandleSuccess(
-                    $user,
-                    $request,
-                    $this->get('app.security.login_form_authenticator'),
-                    'main');
+            return $this->render(
+                'index.html.twig'
+            );
         }
         return $this->render(
             ':users:editProfile.html.twig',

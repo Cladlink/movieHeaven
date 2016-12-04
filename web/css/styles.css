@@ -5,6 +5,31 @@ body {
     background-color: #eeeeee;
 }
 
+.infoboutique{
+    float: left;
+}
+.listefilm li{
+    float: left;
+    text-decoration: none;
+    list-style-type: none;
+    border-bottom: 1px double grey;
+    padding: 5px;
+    max-width: 100%;
+    width: 100%;
+
+}
+.listefilm li a{
+    margin: 2% 5% 5%;
+    display: block;
+    float: left;
+}
+.listefilm li div{
+
+}
+.titre{
+
+}
+
 .sidebar-nav {
     padding: 9px 0;
 }

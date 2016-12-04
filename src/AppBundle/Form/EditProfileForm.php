@@ -18,7 +18,7 @@ class EditProfileForm extends AbstractType
             ->add('emailUtilisateur', EmailType::class)
             ->add('plainPassword', RepeatedType::class,
                 [ 'type' => PasswordType::class,
-                    'mapped' => true])
+                    'mapped' => false])
             ->add('nomUtilisateur')
             ->add('prenomUtilisateur')
             ->add('adresseUtilisateur')
@@ -32,7 +32,8 @@ class EditProfileForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Utilisateur'
+            'data_class' => 'AppBundle\Entity\Utilisateur',
+            'validation_groups' => ['Default', 'Registration']
         ]);
     }
 }

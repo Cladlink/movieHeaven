@@ -13,11 +13,10 @@ use AppBundle\Entity\Commande;
 use AppBundle\Entity\CommentaireFilm;
 use AppBundle\Entity\Film;
 use AppBundle\Entity\Panier;
-use AppBundle\Entity\Utilisateur;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Form\CommentForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/boutique")
@@ -27,12 +26,47 @@ class BoutiqueController extends Controller
     /**
      * @Route("/ficheFilm/{idFilm}", name="ficheFilm")
      */
-     public function ficheFilmAction(Film $film)
+     public function ficheFilmAction(Request $request, Film $idFilm)
      {
-         $em = $this->getDoctrine()->getManager();
-         $films = $em->getRepository('AppBundle:Film')
-             ->find($film);
-         return $this->render(':Boutique:ficheFilm.html.twig', (['films' => $films]));
+         $em = $this->getDoctrine()->getEntityManager();
+
+         $form = $this->createForm(CommentForm::class);
+         $form->handleRequest($request);
+         if ($form->isSubmitted() && $form->isValid())
+         {
+             /**
+              * @var CommentaireFilm $commentairefilm
+              */
+             $commentairefilm = $form->getData()['commentaire'];
+             $nouveauCommentaireFilm = new CommentaireFilm();
+             $nouveauCommentaireFilm->setFilmId($idFilm);
+             $nouveauCommentaireFilm->setUtilisateurId($this->getUser());
+             $nouveauCommentaireFilm->setCommentaire($commentairefilm);
+
+             $em->persist($nouveauCommentaireFilm);
+             $em->flush();
+
+             return $this->redirect($this->generateUrl('afficherBoutique'));
+         }
+
+         $commentaires = $em->getRepository('AppBundle:CommentaireFilm')->findBy([
+             'filmId' => $idFilm
+         ]);
+
+         return $this->render(
+             'Boutique/ficheFilm.html.twig', array(
+             'form' => $form->createView(),
+             'films' => $idFilm,
+             'commentaires' => $commentaires
+
+       ));
+         /*$em = $this->getDoctrine()->getManager();
+         $commentaires = $em->getRepository('AppBundle:CommentaireFilm')
+             ->findOneBy(['filmId' => $film]);
+         $films = $em->getRepository('AppBundle:Film') ->find($film);
+             return $this->render(':Boutique:ficheFilm.html.twig', (
+             ['films' => $films,
+                 'CommentFilm' => $commentaires]));*/
      }
 
     /**
@@ -42,7 +76,8 @@ class BoutiqueController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $films = $em->getRepository('AppBundle:Film')->findAll();
-        return $this->render('Boutique/boutique.html.twig', (['films' => $films]));
+        $typeFilm = $em->getRepository('AppBundle:TypeFilm')->findAll();
+        return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'typeFilm' => $typeFilm]));
     }
 
     /**
@@ -174,31 +209,6 @@ class BoutiqueController extends Controller
 
         $films = $em->getRepository('AppBundle:Film')->findAll();
         return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'erreur' => $erreur]));
-    }
-    /**
-     * @Route("/commentFilm/{name}/notes", name="commentFilm")
-     * @Method("GET")
-     */
-    public function getNotesAction(CommentaireFilm $commentsFilm)
-    {
-        /**
-         * @var CommentaireFilm[] $notes
-         */
-        $notes = [];
-
-        foreach ($notes as $note)
-        {
-            $notes[] = [
-                'username' => $note->getUtilisateurId(),
-                'note' => $note->getCommentaire()
-            ];
-        }
-
-        $data = [
-            'notes' => $notes
-        ];
-
-        return new JsonResponse($data);
     }
 
     /**
