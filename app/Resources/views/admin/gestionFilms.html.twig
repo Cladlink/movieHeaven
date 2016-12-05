@@ -33,7 +33,6 @@
                             <td class="prixFilm">{{film.prixFilm}}€</td>
                             <td class="quantiteFilm">{{film.quantiteFilm}}</td>
                             <td><a href="#"><img width="50px" src="{{ asset('images/editer.png') }}" alt="editer"></a></td>
-                            <td><a href="{{ path('suppFilmBDD', {'film': film.idFilm}) }}"><img width="50px" src="{{ asset('images/supprimer.png') }}"></a></td>
                         </tr>
                     {% endfor %}
                     </tbody>

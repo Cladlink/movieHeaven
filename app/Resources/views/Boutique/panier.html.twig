@@ -24,7 +24,7 @@
                                 <td class="prixFilm">{{panier.filmId.prixFilm}}€</td>
                                 <td class="moins"><a href="{{ path('moins', {'film': panier.filmId.idFilm}) }}" style="font-size: 50px">-</a></td>
                                 <td class="quantiteFilm">{{panier.quantitePanier}}</td>
-                                <td class="plus"><a href="{{ path('plus', {'film': panier.filmId.idFilm}) }}" style="font-size: 25px">+</a></td>
+                                <td class="plus"><a href="{{ path('plus', {'film': panier.filmId.idFilm}) }}">+</a></td>
                                 <td><a href="{{ path('supprimerDuPanier', {'film': panier.filmId.idFilm}) }}"><img width="30px" src="{{ asset('images/supprimer.png') }}"></a></td>
                             </tr>
                         {% endfor %}

@@ -186,7 +186,6 @@ class BoutiqueController extends Controller
                 /**
                  * @var Panier $panier
                  */
-                $panier->setCommandeId($commande);
                 $film = $em->getRepository('AppBundle:Film')->findOneBy(['idFilm' => $panier->getFilmId()]);
                 $quantite = $panier->getQuantitePanier();
                 $prix = $film->getPrixFilm();

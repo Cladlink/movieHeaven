@@ -41,17 +41,6 @@ class CommandeController extends Controller
         $em->persist($commande);
         $em->flush();
 
-        // Suppression des paniers reliés a la commande
-        $paniersCommande = $em->getRepository('AppBundle:Panier')->findBy([
-            'commandeId' => $commande
-        ]);
-
-        foreach ($paniersCommande as $key => $panier)
-        {
-            $em->remove($panier);
-            $em->flush();
-        }
-
         $commandes = $em->getRepository('AppBundle:Commande')->findAll();
         return $this->render('commande/gestionCommandes.html.twig', (['commandes' => $commandes]));
 

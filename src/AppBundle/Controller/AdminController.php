@@ -135,27 +135,4 @@ class AdminController extends Controller
             'form' => $form->createView()
         ]);
     }
-
-    /**
-     * @Route("/supprimerFilmBDD/{film}", name="suppFilmBDD")
-     */
-    public function supprimerFilm(Film $film)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $paniersRelieFilm = $em->getRepository('AppBundle:Panier')->findBy([
-            'filmId' => $film
-        ]);
-        if($paniersRelieFilm == null)
-        {
-            $erreur = false;
-            $em->remove($film);
-            $em->flush();
-        }
-        else
-        {
-            $erreur = "Ce film est present dans le panier d un utilisateur. Impossible de le supprimer.";
-        }
-        $films = $em->getRepository('AppBundle:Film')->findAll();
-        return $this->render('admin/gestionFilms.html.twig', (['films' => $films, 'erreur' => $erreur]));
-    }
 }

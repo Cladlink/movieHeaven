@@ -26,16 +26,17 @@ body {
     text-align: center;
 }
 
-.affichagePanier tr td a{
-    text-decoration: none;
-}
 .plus{
     text-align: left;
     padding-right: 50px;
+    font-size: 25px;
+    text-decoration: none;
 }
 .moins{
     text-align: right;
     padding-left: 20px;
+    text-decoration: none;
+
 }
 .titreFilm{
     text-align: left;
