@@ -129,7 +129,8 @@ class BoutiqueController extends Controller
                     $films = $em->getRepository('AppBundle:Film')->findAll();
                     return $this->render('Boutique/boutique.html.twig', ([
                         'films' => $films,
-                        'erreur' => "Plus assez d objets en stock"
+                        'erreur' => "Plus assez d objets en stock",
+                        'typeFilm' => $typeFilm
                     ]));
                 }
                 $panier->setQuantitePanier($panier->getQuantitePanier()+1);

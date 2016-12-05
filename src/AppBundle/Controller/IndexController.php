@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Utilisateur;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -19,11 +20,14 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
+        /**
+         * @var $utilisateur Utilisateur
+         */
         $utilisateur = $this->getUser();
         $erreur = false;
+        $em = $this->getDoctrine()->getManager();
         if($utilisateur != null)
         {
-            $em = $this->getDoctrine()->getManager();
             $etat = $em->getRepository('AppBundle:EtatCommande')->findOneBy(['libelleEtatCommande' => 'Pas commandee']);
             $commandeEnCours = $em->getRepository('AppBundle:Commande')->findOneBy([
                 'utilisateurId' => $utilisateur,
@@ -50,9 +54,20 @@ class IndexController extends Controller
                     $em->flush();
                     $erreur = "Votre panier a ete supprime car cela faisait trop longtemps que vous n etes pas venu.";
                 }
-
             }
         }
-        return $this->render('index.html.twig', (['erreur' => $erreur]));
+        if($utilisateur!= null && $utilisateur->getRoles() == ['ROLE_ADMIN'])
+        {
+            $films = $em->getRepository('AppBundle:Film')->findBy(array(), array('idFilm' => 'DESC'), 5);
+        }
+        else{
+            $films = null;
+        }
+
+
+
+
+        return $this->render('index.html.twig', (['erreur' => $erreur, 'films' => $films]));
     }
+
 }
