@@ -6,7 +6,7 @@
                 <h2><b>{{ films.titreFilm }}</b></h2>
                <img src="{{asset('images/uploaded/' ~ films.imageFilm)}}">
                 <div class="attributsFilm">
-                <div class="realFilm"><span>Réalisateur : </span>{{ films.realisateurId.nomRealisateur }}</div>
+                <div class="realFilm"><span>Réalisateur : </span>{{ films.realisateurId.prenomRealisateur }} {{ films.realisateurId.nomRealisateur }}</div>
                 <div class="dureeFilm"><span>Durée : </span>{{films.dureeFilm}} min</div>
                 <div class="dateFilm"><span>Date de sortie : </span>{{films.dateFilm|date('Y-m-d')}}</div>
                 <div class="quantiteDuFilm"><span>Quantité disponible : </span>{{films.quantiteFilm}}</div>
