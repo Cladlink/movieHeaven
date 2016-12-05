@@ -36,7 +36,9 @@ body {
     text-align: right;
     padding-left: 20px;
     text-decoration: none;
-
+}
+.dropdown{
+    margin-right: 70px;
 }
 .titreFilm{
     text-align: left;
