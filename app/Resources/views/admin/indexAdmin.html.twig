@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+    {% block body %}
+        <div onload="toto()";></div>
+        <div class="container">
+            <h2>Rupture de stock</h2>
+            <ul class="listefilm">
+                    {% for film in films %}
+                        <li id="{{ film.typeFilmId.libelleTypeFilm }}" class="listeATrier">
+                            <a href="{{ path('ficheFilm', {'idFilm': film.idFilm}) }}">
+                                <img width="90px" src="{{asset('images/uploaded/' ~ film.imageFilm)}}"/>
+                            </a>
+                            <div class="infoboutique">
+                                <h2 class="titre">{{film.titreFilm}}</h2>
+                                <div class="prix">Prix : {{film.prixFilm}}</div>
+                                <div class="quantite">quantité dispo :{{film.quantiteFilm}}</div>
+                                <br>
+
+                                <button onclick="toto({{ film.idFilm }})">Réapprovisionner</button>
+                            </div>
+                        </li>
+                    {% endfor %}
+
+            </ul>
+        </div>
+    {% endblock %}
+    {% block javascripts %}
+
+        <script type="text/javascript">
+            function toto(id)
+            {
+                var toto = prompt('Combien d\'exemplaires voulez vous ajouter ?' + toto);
+                window.location.replace("http://localhost:8000/indexAdmin/"+id+"/" + toto);
+            }
+        </script>
+    {% endblock %}

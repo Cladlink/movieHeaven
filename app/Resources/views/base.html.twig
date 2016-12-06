@@ -27,15 +27,9 @@
                     <li><a href="{{ path('afficherBoutique') }}">Shop</a></li>
                 {% endif %}
                 {% if is_granted("ROLE_ADMIN") %}
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin<b class="caret"></b></a>
-                        <ul class="dropdown-menu" id="menu1">
-                            <li><a href="{{ path('gestion') }}">Gestion BDD</a></li>
-                            <li><a href="{{ path('gestionCommandes') }}">Commandes</a></li>
-                        <li class="divider"></li>
-                            <li><a href="{{ path('security_logout') }}">Logout</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{ path('gestion') }}">Gestion BDD</a></li>
+                    <li><a href="{{ path('gestionCommandes') }}">Commandes</a></li>
+                    <li><a href="{{ path('security_logout') }}">Logout</a></li>
                 {% elseif is_granted("ROLE_USER") %}
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">Espace client <b class="caret"></b></a>

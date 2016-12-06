@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Film;
 use AppBundle\Form\addFilmForm;
+use AppBundle\Form\AddQuantiteFilm;
 use AppBundle\Form\addRealisateurForm;
 use AppBundle\Form\addTypeFilmForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -177,6 +178,8 @@ class AdminController extends Controller
 
             return $this->redirectToRoute('gestionFilms');
         }
-        return $this->render('admin/editFilm.html.twig', array('form' => $form->createView(), 'films' => $film));
+        return $this->render('admin/editFilm.html.twig',
+            array('form' => $form->createView(),
+                'films' => $film));
     }
 }

@@ -1,32 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container">
-        {% if is_granted("ROLE_ADMIN") %}
-            <h2>Ruptures de stock</h2>
-        {% else %}
-            <h2>Nouveautés</h2>
-        {% endif %}
-        <ul class="listefilm">
-            {% for film in films if films is not empty %}
-                <li id="{{ film.typeFilmId.libelleTypeFilm }}" class="listeATrier">
-                    <a href="{{ path('ficheFilm', {'idFilm': film.idFilm}) }}">
-                        <img width="90px" src="{{asset('images/uploaded/' ~ film.imageFilm)}}"/>
-                    </a>
-                    <div class="infoboutique">
-                        <h2 class="titre">{{film.titreFilm}}</h2>
-                        <div class="prix">Prix : {{film.prixFilm}}</div>
-                            <div class="quantite">quantité dispo :{{film.quantiteFilm}}</div>
-                            <a href="{{ path('ajouterPanier', {'film': film.idFilm}) }}">
-                                <img width="50px" src="{{ asset('images/ajouter.png') }}" alt="Ajouter">
-                            </a>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
+        <h2>Nouveautés</h2>
     </div>
-    {% if erreur is defined and erreur != false %}
-        <script type="text/javascript">
-            alert("{{ erreur }}");
-        </script>
-    {% endif %}
 {% endblock %}
