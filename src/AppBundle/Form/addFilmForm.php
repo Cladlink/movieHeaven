@@ -39,6 +39,4 @@ class addFilmForm extends AbstractType
             'data_class' => 'AppBundle\Entity\Film'
         ]);
     }
-
-
 }

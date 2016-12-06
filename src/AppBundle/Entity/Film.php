@@ -60,7 +60,9 @@ class Film
     private $quantiteFilm;
 
     /**
-     * @Assert\Image()
+     * @Assert\Image(
+     *     notFoundMessage = "pas trouvé"
+     * )
      * @ORM\Column(type="string", name="imageFilm")
      */
     private $imageFilm;

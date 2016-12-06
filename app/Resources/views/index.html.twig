@@ -14,16 +14,11 @@
                     </a>
                     <div class="infoboutique">
                         <h2 class="titre">{{film.titreFilm}}</h2>
-
                         <div class="prix">Prix : {{film.prixFilm}}</div>
-                        {% if film.quantiteFilm > 0 %}
                             <div class="quantite">quantité dispo :{{film.quantiteFilm}}</div>
                             <a href="{{ path('ajouterPanier', {'film': film.idFilm}) }}">
-                                <img width="50px" src="{{ asset('images/addCart.png') }}" alt="Ajouter">
+                                <img width="50px" src="{{ asset('images/ajouter.png') }}" alt="Ajouter">
                             </a>
-                        {% else %}
-                            RUPTURE DE STOCK
-                        {% endif %}
                     </div>
                 </li>
             {% endfor %}

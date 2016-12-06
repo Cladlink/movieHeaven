@@ -56,16 +56,10 @@ class IndexController extends Controller
                 }
             }
         }
-        if($utilisateur!= null && $utilisateur->getRoles() == ['ROLE_ADMIN'])
-        {
-            $films = $em->getRepository('AppBundle:Film')->findBy(array(), array('idFilm' => 'DESC'), 5);
-        }
-        else{
+        if ($utilisateur != null && $utilisateur->getRoles() == ['ROLE_ADMIN'])
+            $films = $em->getRepository('AppBundle:Film')->findBy( array('quantiteFilm' => 0));
+        else
             $films = null;
-        }
-
-
-
 
         return $this->render('index.html.twig', (['erreur' => $erreur, 'films' => $films]));
     }

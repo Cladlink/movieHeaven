@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+    {% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Modifiez les champs de votre choix</h2>
+                    {{ form_start(form) }}
+                    {{ form_row(form.titreFilm, { 'label': 'Titre' }) }}
+                    {{ form_row(form.dureeFilm, { 'label': 'Durée' }) }}
+                    {{ form_row(form.dateFilm, { 'label': 'Date de sortie' }) }}
+                    {{ form_row(form.prixFilm, { 'label': 'Prix' }) }}
+                    {{ form_row(form.quantiteFilm, { 'label': 'Quantité en stock' }) }}
+                    {{ form_row(form.imageFilm, { 'label': 'Image' }) }}
+                    {{ form_row(form.typeFilmId, { 'label': 'Type' }) }}
+                    {{ form_row(form.realisateurId, { 'label': 'Réalisateur' }) }}
+                    <button type="submit" class="btn btn-success" formnovalidate>Modifier<span class="fa fa-lock"></span></button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    {% endblock %}

@@ -8,6 +8,7 @@ use AppBundle\Form\addRealisateurForm;
 use AppBundle\Form\addTypeFilmForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -134,5 +135,48 @@ class AdminController extends Controller
         return $this->render('admin/addNouveauTypeFilm.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/modifierFilm/{film}", name="modifierFilm")
+     */
+    public function modifierFilm(Request $request, Film $film)
+    {
+        $imageName = new File($this->getParameter('images_directory').'/'.$film->getImageFilm());
+        $film->setImageFilm(
+            $imageName
+        );
+
+        $form = $this->createForm(addFilmForm::class, $film);
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            /**
+             * @var Film $film
+             */
+            $filmEdited = $form->getData();
+
+            if ($filmEdited->getImageFilm() == null)
+            {
+                $filmEdited->setImageFilm($imageName);
+            }
+            /** @var UploadedFile $file */
+            $file = $filmEdited->getImageFilm();
+            $fileName = $filmEdited->getTitreFilm().'.'.$file->guessExtension();
+            $file->move(
+                $this->getParameter('images_directory'),
+                $fileName
+            );
+            $filmEdited->setImageFilm($fileName);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($filmEdited);
+            $em->flush();
+
+            return $this->redirectToRoute('gestionFilms');
+        }
+        return $this->render('admin/editFilm.html.twig', array('form' => $form->createView(), 'films' => $film));
     }
 }
