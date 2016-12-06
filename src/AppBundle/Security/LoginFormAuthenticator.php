@@ -49,7 +49,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         );
 
         return $data;
-
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
@@ -76,6 +75,4 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         return $this->router->generate('home');
     }
-
-
 }

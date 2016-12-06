@@ -15,7 +15,7 @@
             <h2>Commentaires</h2>
             {% for commentaire in commentaires if commentaires is not empty %}
                 <div class="commentairePar">Par <b>{{ commentaire.utilisateurId.nomUtilisateur }} :</b></div>
-                <div class="commentaire">{{ commentaire.commentaire }}</div><br><br>
+                <div class="commentaire">{{ commentaire.commentaire | raw}}</div><br><br>
             {% endfor %}
         </div>
     </div>

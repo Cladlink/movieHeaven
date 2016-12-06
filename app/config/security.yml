@@ -38,5 +38,3 @@ security:
         - { path: ^/commande/validerCommande, roles: ROLE_ADMIN }
         - { path: ^/commande/ficheCommande, roles: [ROLE_ADMIN, ROLE_USER] }
         - { path: ^/commande/afficherCommandes, roles: ROLE_USER }
-
-
