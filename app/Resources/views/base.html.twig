@@ -18,12 +18,11 @@
             </form>
         </div>
         <header class="header">
-            <img class="logo-icon" src="{{ asset('images/logo.png') }}">
-            <h1 class="logo"><a href="{{ path('home') }}">Movie Shop</a></h1>
+
+            <h1 class="logo"><a href="{{ path('home') }}"><img class="logo-icon" src="{{ asset('images/logo.png') }}">Movie Shop</a></h1>
             <ul class="nav nav-pills navi">
 
                 {% if is_granted("ROLE_USER") %}
-                    <li class="search"><a href="#" class="js-header-search-toggle"><i class="fa fa-search"></i></a></li>
                     <li><a href="{{ path('afficherBoutique') }}">Shop</a></li>
                 {% endif %}
                 {% if is_granted("ROLE_ADMIN") %}
@@ -32,7 +31,7 @@
                     <li><a href="{{ path('security_logout') }}">Logout</a></li>
                 {% elseif is_granted("ROLE_USER") %}
                     <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Espace client <b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Compte<b class="caret"></b></a>
                         <ul class="dropdown-menu" id="menu1">
                             <li><a href="{{ path('afficherCommandesUtilisateur') }}">Commandes</a></li>
                             <li><a href="{{ path('gestionCompte') }}">Gestion Compte</a></li>
@@ -50,22 +49,18 @@
                 <a class="left" href="{{ path('afficherPanier') }}"><img width="30px" src="{{ asset('images/cart.png') }}" alt="caddie"></a>
             {% endif %}
         </ul>
-
-
         </header>
         <div class="main-content">
             {% for msg in app.session.flashBag.get('success') %}
-                <div class="alert alert-success">
-                    {{ msg }}
-                </div>
+                <div class="alert alert-success">{{ msg }}</div>
             {% endfor %}
-            {% block body %}{% endblock %}
+            {% block body %}
+            {% endblock %}
         </div>
         <div class="footer">
             <p>BOUTBOUL Michael --- CANIARD Marie-Lucile ||| S3A1</p>
         </div>
-        {% block javascripts %}
-            <script src="{{ asset('js/main.js') }}"></script>
-        {% endblock %}
+    {% block javascripts %}
+    {% endblock %}
     </body>
 </html>

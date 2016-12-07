@@ -45,7 +45,6 @@ class IndexController extends Controller
     public function indexAdminAddAction(Film $film, $quantiteFilm)
     {
             //todo modifier le nbQuantite
-
             $em = $this->getDoctrine()->getManager();
             $film->setQuantiteFilm($quantiteFilm);
             $em->persist($film);

@@ -42,7 +42,6 @@ CREATE TABLE `Commande` (
 
 LOCK TABLES `Commande` WRITE;
 /*!40000 ALTER TABLE `Commande` DISABLE KEYS */;
-INSERT INTO `Commande` VALUES (2,49.24,'2016-11-30',5,1),(3,0,'2016-11-30',5,1),(4,109,'2016-11-30',5,1),(5,0,'2016-11-30',5,1);
 /*!40000 ALTER TABLE `Commande` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -72,7 +71,6 @@ CREATE TABLE `CommentaireFilm` (
 
 LOCK TABLES `CommentaireFilm` WRITE;
 /*!40000 ALTER TABLE `CommentaireFilm` DISABLE KEYS */;
-INSERT INTO `CommentaireFilm` VALUES (1,'trop bien !',7,3);
 /*!40000 ALTER TABLE `CommentaireFilm` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +185,6 @@ CREATE TABLE `Panier` (
 
 LOCK TABLES `Panier` WRITE;
 /*!40000 ALTER TABLE `Panier` DISABLE KEYS */;
-INSERT INTO `Panier` VALUES (2,4,5,7,2),(5,5,5,8,4),(6,1,5,9,4);
 /*!40000 ALTER TABLE `Panier` ENABLE KEYS */;
 UNLOCK TABLES;
 

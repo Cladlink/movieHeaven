@@ -3,8 +3,23 @@ Flexbox Layout
 *******************************/
 body {
     background-color: #eeeeee;
+    overflow:visible;
 }
-
+header{
+    height: 60px;
+}
+input{
+    width: 50%;
+}
+.nav{
+    position: relative;
+    top:-15px;
+}
+header h1 a{
+    position: relative;
+    top:-30px;
+    font-size: 80%;
+}
 .affichagePanier tr th, .gestionFilm tr th, .gestionCommandes tr th, .ficheCommande tr th{
     text-align: center;
     font-size: 20px;
@@ -44,10 +59,12 @@ body {
 .gestionFilm tr td a{
     padding-left: 50px;
 }
+
 .gestionFilm tr th, .gestionCommandes tr th{
     padding-left: 5px;
     padding-right: 5px;
 }
+
 .gestionFilm tr td, .gestionCommandes tr td, .ficheCommande tr td{
     text-align: center;
 }
@@ -64,9 +81,11 @@ body {
     padding-top: 20px;
     padding-bottom: 60px;
 }
+
 .attributsFilm{
     padding-top: 30px;
 }
+
 #ficheFilm div span{
     padding-left: 30px ;
     font-size: 24px;
@@ -81,23 +100,28 @@ body {
 .commentairePar{
     font-size: 18px;
 }
+
 .commentaire{
     padding-left: 30px;
     padding-bottom: 10px;
     font-style: italic;
 }
+
 .formCommentaire{
     padding-left: 100px;
     padding-right: 100px;
 }
+
 .panierVide{
     font-size: 19px;
 }
 
-
 .infoboutique{
     float: left;
+    display: inline;
+
 }
+
 .listefilm li{
     float: left;
     text-decoration: none;
@@ -161,13 +185,8 @@ body {
 }
 
 .container h2 {
-    margin-top: 10%;
+    margin-top: 20px;
 }
-
-.main-content {
-    margin-bottom: 100px;
-}
-
 .header {
     width: 100%;
     position: fixed;
@@ -184,6 +203,9 @@ body {
     margin-right: 20px;
 }
 
+.container{
+    padding-top: 100px;
+}
 .main-content {
     min-height: 300px;
 }
