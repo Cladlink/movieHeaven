@@ -32,11 +32,11 @@
                     </table>
                     <br><br><br>
                     <a href="{{ path('commander') }}"><img src="{{ asset('images/commander.png') }}" alt="Valider la commande"></a>
-                    {% if erreur is defined and erreur != false %}
-                        <script type="text/javascript">
-                            alert("{{ erreur }}");
-                        </script>
-                    {% endif %}
+                {% if erreur is defined and erreur != false %}
+                    <script type="text/javascript">
+                        alert("{{ erreur }}");
+                    </script>
+                {% endif %}
                 {% else %}
                     <p class="panierVide">Votre panier est vide</p>
                 {% endif %}

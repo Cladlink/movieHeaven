@@ -18,7 +18,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for film in films if films %}
+                    {% for film in films if films is not empty  %}
                         <tr>
                             <td><img width="60px" src="{{asset('images/uploaded/' ~ film.imageFilm)}}"> </td>
                             {% if film.quantiteFilm < 5 %}

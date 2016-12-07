@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Route("/boutique")
  */
-class BoutiqueController extends Controller
+class NavigationController extends Controller
 {
     /**
      * @Route("/ficheFilm/{idFilm}", name="ficheFilm")
@@ -51,7 +51,7 @@ class BoutiqueController extends Controller
          ]);
 
          return $this->render(
-             'Boutique/ficheFilm.html.twig', array(
+             ':Navigation:ficheFilm.html.twig', array(
              'form' => $form->createView(),
              'films' => $idFilm,
              'commentaires' => $commentaires
@@ -74,7 +74,7 @@ class BoutiqueController extends Controller
         $em = $this->getDoctrine()->getManager();
         $films = $em->getRepository('AppBundle:Film')->findAll();
         $typeFilm = $em->getRepository('AppBundle:TypeFilm')->findAll();
-        return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'typeFilm' => $typeFilm]));
+        return $this->render(':Navigation:boutique.html.twig', (['films' => $films, 'typeFilm' => $typeFilm]));
     }
 
     /**
@@ -91,7 +91,7 @@ class BoutiqueController extends Controller
             ->findOneBy(['utilisateurId' => $utilisateur, 'etatId' => $etat]);
         $contenu = $em->getRepository('AppBundle:Panier')
             ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commandeConcernee]);
-        return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu]));
+        return $this->render(':Navigation:panier.html.twig', (['contenu' => $contenu]));
     }
 
     /**
@@ -127,7 +127,7 @@ class BoutiqueController extends Controller
                 if($panier->getQuantitePanier()+1 > $filmAAjouter->getQuantiteFilm())
                 {
                     $films = $em->getRepository('AppBundle:Film')->findAll();
-                    return $this->render('Boutique/boutique.html.twig', ([
+                    return $this->render(':Navigation:boutique.html.twig', ([
                         'films' => $films,
                         'erreur' => "Plus assez d objets en stock",
                         'typeFilm' => $typeFilm
@@ -137,7 +137,7 @@ class BoutiqueController extends Controller
                 $em->persist($panier);
                 $em->flush();
                 $films = $em->getRepository('AppBundle:Film')->findAll();
-                return $this->render('Boutique/boutique.html.twig', ['films' => $films, 'typeFilm' => $typeFilm]);
+                return $this->render(':Navigation:boutique.html.twig', ['films' => $films, 'typeFilm' => $typeFilm]);
             }
         }
         $films = $em->getRepository('AppBundle:Film')->findAll();
@@ -151,10 +151,10 @@ class BoutiqueController extends Controller
 
             $em->persist($liaison);
             $em->flush();
-            return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'typeFilm' => $typeFilm]));
+            return $this->render(':Navigation:boutique.html.twig', (['films' => $films, 'typeFilm' => $typeFilm]));
         }
 
-        return $this->render('Boutique/boutique.html.twig',(['films' => $films, 'erreur' => "Plus assez d objets en stock", 'typeFilm' => $typeFilm]));
+        return $this->render(':Navigation:boutique.html.twig',(['films' => $films, 'erreur' => "Plus assez d objets en stock", 'typeFilm' => $typeFilm]));
     }
 
     /**
@@ -178,7 +178,7 @@ class BoutiqueController extends Controller
             if($paniers == null)
             {
                 $films = $em->getRepository('AppBundle:Film')->findAll();
-                return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'erreur' => "La commande est vide", 'typeFilm' => $typeFilm]));
+                return $this->render(':Navigation:boutique.html.twig', (['films' => $films, 'erreur' => "La commande est vide", 'typeFilm' => $typeFilm]));
             }
             $prixTotal = 0;
             foreach ($paniers as $key => $panier)
@@ -208,7 +208,7 @@ class BoutiqueController extends Controller
         }
 
         $films = $em->getRepository('AppBundle:Film')->findAll();
-        return $this->render('Boutique/boutique.html.twig', (['films' => $films, 'erreur' => $erreur, 'typeFilm' => $typeFilm]));
+        return $this->render(':Navigation:boutique.html.twig', (['films' => $films, 'erreur' => $erreur, 'typeFilm' => $typeFilm]));
     }
 
     /**
@@ -233,7 +233,7 @@ class BoutiqueController extends Controller
         {
             $contenu = $em->getRepository('AppBundle:Panier')
                 ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
-            return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu, 'erreur' => "Plus assez d objets en stock"]));
+            return $this->render(':Navigation:panier.html.twig', (['contenu' => $contenu, 'erreur' => "Plus assez d objets en stock"]));
         }
 
         $panier->setQuantitePanier($quantiteActuelle+1);
@@ -243,7 +243,7 @@ class BoutiqueController extends Controller
 
         $contenu = $em->getRepository('AppBundle:Panier')
             ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
-        return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu]));
+        return $this->render(':Navigation:panier.html.twig', (['contenu' => $contenu]));
     }
 
     /**
@@ -271,7 +271,7 @@ class BoutiqueController extends Controller
 
             $contenu = $em->getRepository('AppBundle:Panier')
                 ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
-            return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu]));
+            return $this->render(':Navigation:panier.html.twig', (['contenu' => $contenu]));
         }
 
         $panier->setQuantitePanier($quantiteActuelle-1);
@@ -281,7 +281,7 @@ class BoutiqueController extends Controller
 
         $contenu = $em->getRepository('AppBundle:Panier')
             ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
-        return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu]));
+        return $this->render(':Navigation:panier.html.twig', (['contenu' => $contenu]));
     }
 
     /**
@@ -310,6 +310,6 @@ class BoutiqueController extends Controller
 
         $contenu = $em->getRepository('AppBundle:Panier')
             ->findBy(['utilisateurId' => $utilisateur, 'commandeId' => $commande]);
-        return $this->render('Boutique/panier.html.twig', (['contenu' => $contenu, 'erreur' => $erreur]));
+        return $this->render(':Navigation:panier.html.twig', (['contenu' => $contenu, 'erreur' => $erreur]));
     }
 }

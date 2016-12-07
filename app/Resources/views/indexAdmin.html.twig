@@ -4,7 +4,7 @@
         <div class="container">
             <h2>Rupture de stock</h2>
             <ul class="listefilm">
-                    {% for film in films %}
+                    {% for film in films if films is not empty%}
                         <li id="{{ film.typeFilmId.libelleTypeFilm }}" class="listeATrier">
                             <a href="{{ path('ficheFilm', {'idFilm': film.idFilm}) }}">
                                 <img width="90px" src="{{asset('images/uploaded/' ~ film.imageFilm)}}"/>

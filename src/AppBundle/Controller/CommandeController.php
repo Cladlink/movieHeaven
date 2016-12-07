@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: cladlink
- * Date: 29/11/16
- * Time: 22:19
- */
 
 namespace AppBundle\Controller;
 
@@ -26,7 +20,7 @@ class CommandeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $commandes = $em->getRepository('AppBundle:Commande')->findAll();
-        return $this->render('commande/gestionCommandes.html.twig', (['commandes' => $commandes]));
+        return $this->render('admin/OrderManagement/gestionCommandes.html.twig', (['commandes' => $commandes]));
     }
 
     /**
@@ -42,7 +36,7 @@ class CommandeController extends Controller
         $em->flush();
 
         $commandes = $em->getRepository('AppBundle:Commande')->findAll();
-        return $this->render('commande/gestionCommandes.html.twig', (['commandes' => $commandes]));
+        return $this->render('admin/OrderManagement/gestionCommandes.html.twig', (['commandes' => $commandes]));
 
     }
 
@@ -53,7 +47,7 @@ class CommandeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $paniersDeLaCommande = $em->getRepository('AppBundle:Panier')->findBy(['commandeId' => $commande]);
-        return $this->render('commande/ficheCommande.html.twig', (['paniers' => $paniersDeLaCommande]));
+        return $this->render('commande/detailCommande.html.twig', (['paniers' => $paniersDeLaCommande]));
     }
 
     /**

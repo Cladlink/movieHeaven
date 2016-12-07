@@ -33,7 +33,7 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $films = $em->getRepository('AppBundle:Film')->findAll();
-        return $this->render('admin/gestionFilms.html.twig', (['films' => $films]));
+        return $this->render(':admin/FilmManagement:gestionFilms.html.twig', (['films' => $films]));
     }
 
     /**
@@ -43,7 +43,7 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $realisateurs = $em->getRepository('AppBundle:Realisateur')->findAll();
-        return $this->render('admin/gestionRealisateurs.html.twig', (['realisateurs' => $realisateurs]));
+        return $this->render(':admin/DirectorManagement:gestionRealisateurs.html.twig', (['realisateurs' => $realisateurs]));
     }
 
     /**
@@ -53,7 +53,7 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $types = $em->getRepository('AppBundle:TypeFilm')->findAll();
-        return $this->render('admin/gestionTypesFilm.html.twig', (['types' => $types]));
+        return $this->render(':admin/TypeFilmManagement:gestionTypesFilm.html.twig', (['types' => $types]));
     }
 
     /**
@@ -86,7 +86,7 @@ class AdminController extends Controller
 
             return $this->redirectToRoute('gestionFilms');
         }
-        return $this->render('admin/addNouveauFilm.html.twig', [
+        return $this->render(':admin/FilmManagement:addNouveauFilm.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -110,7 +110,7 @@ class AdminController extends Controller
 
             return $this->redirectToRoute('gestionRealisateurs');
         }
-        return $this->render('admin/addNouveauRealisateur.html.twig', [
+        return $this->render('admin/DirectorManagement/addNouveauRealisateur.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -133,7 +133,7 @@ class AdminController extends Controller
 
             return $this->redirectToRoute('gestionTypesFilm');
         }
-        return $this->render('admin/addNouveauTypeFilm.html.twig', [
+        return $this->render('admin/TypeFilmManagement/addNouveauTypeFilm.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -178,7 +178,7 @@ class AdminController extends Controller
 
             return $this->redirectToRoute('gestionFilms');
         }
-        return $this->render('admin/editFilm.html.twig',
+        return $this->render(':admin/FilmManagement:editFilm.html.twig',
             array('form' => $form->createView(),
                 'films' => $film));
     }

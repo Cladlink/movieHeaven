@@ -29,7 +29,7 @@ class UtilisateurController extends Controller
         ]);
 
         return $this->render(
-            'security/login.html.twig',
+            'users/login.html.twig',
             array(
                 'form' => $form->createView(),
                 'error' => $error,
@@ -70,7 +70,7 @@ class UtilisateurController extends Controller
 
         }
         return $this->render(
-            'security/signin.html.twig',
+            'users/signin.html.twig',
             array(
                 'form' => $form->createView()
             )

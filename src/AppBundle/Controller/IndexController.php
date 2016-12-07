@@ -36,7 +36,7 @@ class IndexController extends Controller
         $em = $this->getDoctrine()->getManager();
         $films = $em->getRepository('AppBundle:Film')->findBy( array('quantiteFilm' => 0));
 
-        return $this->render(':admin:indexAdmin.html.twig',
+        return $this->render('indexAdmin.html.twig',
             array('films' => $films));
     }
     /**
