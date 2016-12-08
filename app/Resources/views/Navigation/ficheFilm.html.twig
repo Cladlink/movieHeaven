@@ -10,7 +10,7 @@
                     <div class="attributsFilm">
                     <div class="realFilm"><span>Réalisateur : </span>{{ films.realisateurId.prenomRealisateur }} {{ films.realisateurId.nomRealisateur }}</div>
                     <div class="dureeFilm"><span>Durée : </span>{{films.dureeFilm}} min</div>
-                    <div class="dateFilm"><span>Date de sortie : </span>{{films.dateFilm|date('Y-m-d')}}</div>
+                    <div class="dateFilm"><span>Date de sortie : </span>{{films.dateFilm|date('d/m/Y')}}</div>
                     <div class="quantiteDuFilm"><span>Quantité disponible : </span>{{films.quantiteFilm}}</div>
                     <div class="prixFilm"><span>Prix : </span>{{films.prixFilm}}€</div></div>
                    </div>

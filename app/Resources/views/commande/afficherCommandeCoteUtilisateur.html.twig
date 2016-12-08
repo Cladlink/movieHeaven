@@ -19,7 +19,7 @@
                             {% for commande in commandes if commandes is not empty %}
 
                                 <tr>
-                                    <td>{{commande.dateCommande|date('Y-m-d')}}</td>
+                                    <td>{{commande.dateCommande|date('d/m/Y')}}</td>
                                     <td>{{commande.prixCommande}}€</td>
                                     <td>{{commande.etatId.libelleEtatCommande}}</td>
                                     <td><a href="{{ path('ficheCommande', {'commande': commande.idCommande}) }}">Détails de la commande</a></td>

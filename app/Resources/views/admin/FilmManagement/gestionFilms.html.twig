@@ -30,7 +30,7 @@
                                     {% endif %}
                                     <td>{{ film.realisateurId.nomRealisateur }}</td>
                                     <td>{{film.dureeFilm}}</td>
-                                    <td>{{film.dateFilm|date('Y-m-d')}}</td>
+                                    <td>{{film.dateFilm|date('d/m/Y')}}</td>
                                     <td class="prixFilm">{{film.prixFilm}}€</td>
                                     <td class="quantiteFilm">{{film.quantiteFilm}}</td>
                                     <td><a href="{{ path('modifierFilm', {'film': film.idFilm}) }}"><img width="50px" src="{{ asset('images/editer.png') }}" alt="editer"></a></td>
