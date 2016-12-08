@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Film;
+use AppBundle\Entity\Realisateur;
 use AppBundle\Form\addFilmForm;
 use AppBundle\Form\AddQuantiteFilm;
 use AppBundle\Form\addRealisateurForm;
@@ -114,6 +115,31 @@ class AdminController extends Controller
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/editRealisateur/{id}", name="editRealisateur")
+     */
+     public function editRealisateurAction(Realisateur $realisateur, Request $request)
+     {
+         $form = $this->createForm(addRealisateurForm::class, $realisateur);
+
+         $form->handleRequest($request);
+
+         if($form->isSubmitted() && $form->isValid())
+         {
+             $realisateur = $form->getData();
+
+             $em = $this->getDoctrine()->getManager();
+             $em->persist($realisateur);
+             $em->flush();
+
+             return $this->redirectToRoute('gestionRealisateurs');
+         }
+         return $this->render('admin/DirectorManagement/addNouveauRealisateur.html.twig', [
+             'form' => $form->createView(),
+             'realisateur' => $realisateur
+         ]);
+     }
 
     /**
      * @Route("/nouveauTypeFilm", name="ajouterNouveauType")

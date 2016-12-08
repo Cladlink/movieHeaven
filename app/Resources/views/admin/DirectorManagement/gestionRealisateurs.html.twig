@@ -20,7 +20,7 @@
                         <tr>
                             <td>{{realisateur.nomRealisateur}}</td>
                             <td>{{realisateur.prenomRealisateur}}</td>
-                            <td><a href="#">modifier</a></td>
+                            <td><a href="{{ path('editRealisateur', {'id': realisateur.idRealisateur}) }}">modifier</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
