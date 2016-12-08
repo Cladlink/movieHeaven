@@ -1,41 +1,41 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2>Gestion des films</h2>
-                <table cellspacing="60" class="gestionCommandes">
-                    <thead>
-                    <tr>
-                        <th>Nom utilisateur</th>
-                        <th>Prix</th>
-                        <th>Date</th>
-                        <th>Etat</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for commande in commandes if commandes is not empty %}
-                        {% if commande.etatId.libelleEtatCommande != "Pas commandee" %}
+
+
+    {% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Gestion des films</h2>
+                    <table cellspacing="60" class="gestionCommandes">
+                        <thead>
                             <tr>
-                                <td>{{commande.utilisateurId.nomUtilisateur}}</td>
-                                <td>{{commande.prixCommande}}€</td>
-                                <td>{{commande.dateCommande|date('Y-m-d')}}</td>
-                                <td>{{commande.etatId.libelleEtatCommande}}</td>
-                                <td><a href="{{ path('ficheCommande', {'commande': commande.idCommande}) }}">Détails de la commande</a></td>
-                                {% if commande.etatId.libelleEtatCommande == "En attente d expedition" %}
-                                    <td><a href="{{ path('validerCommande', {'commande': commande.idCommande}) }}"><img width="50px"
-                                                    src="{{ asset('images/valider.png') }}" alt=""></a></td>
-                                {% else %}
-                                    <td></td>
-                                {% endif %}
+                                <th>Nom utilisateur</th>
+                                <th>Prix</th>
+                                <th>Date</th>
+                                <th>Etat</th>
                             </tr>
-                        {% endif %}
-                    {% endfor %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {% for commande in commandes if commandes is not empty %}
+                                {% if commande.etatId.libelleEtatCommande != "Pas commandee" %}
+                                    <tr>
+                                        <td>{{commande.utilisateurId.nomUtilisateur}}</td>
+                                        <td>{{commande.prixCommande}}€</td>
+                                        <td>{{commande.dateCommande|date('Y-m-d')}}</td>
+                                        <td>{{commande.etatId.libelleEtatCommande}}</td>
+                                        <td><a href="{{ path('ficheCommande', {'commande': commande.idCommande}) }}">Détails de la commande</a></td>
+                                        {% if commande.etatId.libelleEtatCommande == "En attente d expedition" %}
+                                            <td><a href="{{ path('validerCommande', {'commande': commande.idCommande}) }}"><img width="50px"
+                                                            src="{{ asset('images/valider.png') }}" alt=""></a></td>
+                                        {% else %}
+                                            <td></td>
+                                        {% endif %}
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-{% endblock %}
-
-
+    {% endblock %}

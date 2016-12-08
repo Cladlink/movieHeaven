@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-    <div class="container">
-        <h2>Nouveautés</h2>
-    </div>
-{% endblock %}
+    {% block body %}
+        <div class="container">
+            {% if is_granted(['ROLE_USER']) %}
+                <h2>Nouveautés</h2>
+            {% else %}
+                <h2>Produits recemment cusultés</h2>
+            {% endif %}
+        </div>
+    {% endblock %}

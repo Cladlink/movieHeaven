@@ -1,48 +1,50 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2>Panier</h2>
-                {% if contenu is not empty %}
-                    <table cellspacing="60" class="affichagePanier">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>Titre</th>
-                            <th>Prix</th>
-                            <th></th>
-                            <th>Quantité</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for panier in contenu if contenu is not empty %}
 
-                            <tr>
-                                <td><img width="60px" src="{{asset('images/uploaded/' ~ panier.filmId.imageFilm)}}"> </td>
-                                <td class="titreFilm">{{panier.filmId.titreFilm}}</td>
-                                <td class="prixFilm">{{panier.filmId.prixFilm}}€</td>
-                                <td class="moins"><a href="{{ path('moins', {'film': panier.filmId.idFilm}) }}" style="font-size: 50px">-</a></td>
-                                <td class="quantiteFilm">{{panier.quantitePanier}}</td>
-                                <td class="plus"><a href="{{ path('plus', {'film': panier.filmId.idFilm}) }}">+</a></td>
-                                <td><a href="{{ path('supprimerDuPanier', {'film': panier.filmId.idFilm}) }}"><img width="30px" src="{{ asset('images/supprimer.png') }}"></a></td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    <br><br><br>
-                    <a href="{{ path('commander') }}"><img src="{{ asset('images/commander.png') }}" alt="Valider la commande"></a>
-                {% if erreur is defined and erreur != false %}
-                    <script type="text/javascript">
-                        alert("{{ erreur }}");
-                    </script>
-                {% endif %}
-                {% else %}
-                    <p class="panierVide">Votre panier est vide</p>
-                {% endif %}
+
+    {% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Panier</h2>
+                    {% if contenu is not empty %}
+                        <table cellspacing="60" class="affichagePanier">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Titre</th>
+                                    <th>Prix</th>
+                                    <th></th>
+                                    <th>Quantité</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for panier in contenu if contenu is not empty %}
+
+                                <tr>
+                                    <td><img width="60px" src="{{asset('images/uploaded/' ~ panier.filmId.imageFilm)}}"> </td>
+                                    <td class="titreFilm">{{panier.filmId.titreFilm}}</td>
+                                    <td class="prixFilm">{{panier.filmId.prixFilm}}€</td>
+                                    <td class="moins"><a href="{{ path('moins', {'film': panier.filmId.idFilm}) }}" style="font-size: 50px">-</a></td>
+                                    <td class="quantiteFilm">{{panier.quantitePanier}}</td>
+                                    <td class="plus"><a href="{{ path('plus', {'film': panier.filmId.idFilm}) }}">+</a></td>
+                                    <td><a href="{{ path('supprimerDuPanier', {'film': panier.filmId.idFilm}) }}"><img width="30px" src="{{ asset('images/supprimer.png') }}"></a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <br><br><br>
+                        <a href="{{ path('commander') }}"><img src="{{ asset('images/commander.png') }}" alt="Valider la commande"></a>
+                    {% if erreur is defined and erreur != false %}
+                        <script type="text/javascript">
+                            alert("{{ erreur }}");
+                        </script>
+                    {% endif %}
+                    {% else %}
+                        <p class="panierVide">Votre panier est vide</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-{% endblock %}
+    {% endblock %}
 
 

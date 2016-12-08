@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Film;
 use AppBundle\Entity\Realisateur;
+use AppBundle\Entity\TypeFilm;
 use AppBundle\Form\addFilmForm;
 use AppBundle\Form\AddQuantiteFilm;
 use AppBundle\Form\addRealisateurForm;
@@ -161,6 +162,31 @@ class AdminController extends Controller
         }
         return $this->render('admin/TypeFilmManagement/addNouveauTypeFilm.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+
+    /**
+     * @Route("/editTypeFilm/{id}", name="editTypeMovie")
+     */
+    public function editType(Request $request, TypeFilm $typeFilm)
+    {
+        $form = $this->createForm(addTypeFilmForm::class, $typeFilm);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $type = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($type);
+            $em->flush();
+
+            return $this->redirectToRoute('gestionTypesFilm');
+        }
+        return $this->render('admin/TypeFilmManagement/addNouveauTypeFilm.html.twig', [
+            'form' => $form->createView(),
+            'typeFilm' => $typeFilm
         ]);
     }
 

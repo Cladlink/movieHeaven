@@ -1,22 +1,24 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2>Inscription</h2>
-                {{ form_start(form) }}
-                    {{ form_row(form.emailUtilisateur, { 'label': 'E-Mail' }) }}
-                    {{ form_row(form.plainPassword.first, { 'label': 'Mot de passe' }) }}
-                    {{ form_row(form.plainPassword.second, { 'label': 'Répéter mot de passe' }) }}
-                    {{ form_row(form.nomUtilisateur, { 'label': 'Nom' }) }}
-                    {{ form_row(form.prenomUtilisateur, { 'label': 'Prénom' }) }}
-                    {{ form_row(form.adresseUtilisateur, { 'label': 'Adresse' }) }}
-                    {{ form_row(form.codePostalUtilisateur, { 'label': 'Code Postal' }) }}
-                    {{ form_row(form.villeUtilisateur, { 'label': 'Ville' }) }}
-                    {{ form_row(form.captchaCode) }}
-                    <button type="submit" class="btn btn-success" formnovalidate>S'inscrire <span class="fa fa-lock"></span></button>
-                {{ form_end(form) }}
+
+
+    {% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Inscription</h2>
+                    {{ form_start(form) }}
+                        {{ form_row(form.emailUtilisateur, { 'label': 'E-Mail' }) }}
+                        {{ form_row(form.plainPassword.first, { 'label': 'Mot de passe' }) }}
+                        {{ form_row(form.plainPassword.second, { 'label': 'Répéter mot de passe' }) }}
+                        {{ form_row(form.nomUtilisateur, { 'label': 'Nom' }) }}
+                        {{ form_row(form.prenomUtilisateur, { 'label': 'Prénom' }) }}
+                        {{ form_row(form.adresseUtilisateur, { 'label': 'Adresse' }) }}
+                        {{ form_row(form.codePostalUtilisateur, { 'label': 'Code Postal' }) }}
+                        {{ form_row(form.villeUtilisateur, { 'label': 'Ville' }) }}
+                        {{ form_row(form.captchaCode) }}
+                        <button type="submit" class="btn btn-success" formnovalidate>S'inscrire <span class="fa fa-lock"></span></button>
+                    {{ form_end(form) }}
+                </div>
             </div>
         </div>
-    </div>
-{% endblock %}
+    {% endblock %}

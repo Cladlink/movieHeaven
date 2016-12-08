@@ -17,9 +17,18 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
 
+    // Ce sont les quatres services que nous utilisons pour la création d'un authentifieur
+
+    //formFactory pour créer le formulaire d'authentification
     private $formFactory;
+
+    //entityManager pour vérifier dans la bdd que les identifiants concordent
     private $entityManager;
+
+    //router pour les redirections
     private $router;
+
+    //passwordEncoder pour crypter les mots de passe
     private $passwordEncoder;
 
     public function __construct(FormFactoryInterface $formFactory,
@@ -33,6 +42,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->passwordEncoder = $passwordEncoder;
     }
 
+    /**
+     * getCredentials
+     * @param Request $request
+     *
+     *      récupère les identifiants saisie
+     *
+     * @return mixed|null
+     */
     public function getCredentials(Request $request)
     {
         $isLoginSubmit = $request->getPathInfo() == '/Utilisateur/login'&& $request->isMethod('POST');
@@ -51,6 +68,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $data;
     }
 
+    /**
+     * getUser
+     *      recupere l'utilisateur dans la bdd
+     * @param mixed $credentials
+     * @param UserProviderInterface $userProvider
+     * @return \AppBundle\Entity\Utilisateur|null|object
+     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $username = $credentials['_username'];
@@ -66,11 +90,22 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return false;
     }
 
+    /**
+     * getLoginUrl
+     *      route empruntée pour se loguer (ou si le mdp est faux)
+     *
+     * @return string
+     */
     protected function getLoginUrl()
     {
         return $this->router->generate('security_login');
     }
 
+    /**
+     * getDefaultSuccessRedirectUrl
+     *      Route empruntée si l'authentification est correcte
+     * @return string
+     */
     protected function getDefaultSuccessRedirectUrl()
     {
         return $this->router->generate('home');

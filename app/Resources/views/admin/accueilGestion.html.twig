@@ -1,14 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-    <div class="container">
-        <h2>Gestion de la base de données</h2><br><br>
 
+
+    {% block body %}
+        <div class="container">
+            <h2>Gestion de la base de données</h2><br><br>
             <a href="{{ path('gestionFilms') }}"><img width="30px" src="{{ asset('images/logo.png') }}">Gestion des films</a><br>
-
             <a href="{{ path('gestionRealisateurs') }}"><img width="30px" src="{{ asset('images/logo.png') }}">Gestion des réalisateurs</a><br>
-
             <a href="{{ path('gestionTypesFilm') }}"><img width="30px" src="{{ asset('images/logo.png') }}">Gestion des types de films</a><br>
-
-
-    </div>
-{% endblock %}
+        </div>
+    {% endblock %}

@@ -1,4 +1,6 @@
 {% extends 'base.html.twig' %}
+
+
     {% block body %}
         <div onload="toto()";></div>
         <div class="container">
@@ -14,8 +16,7 @@
                                 <div class="prix">Prix : {{film.prixFilm}}</div>
                                 <div class="quantite">quantité dispo :{{film.quantiteFilm}}</div>
                                 <br>
-
-                                <button onclick="toto({{ film.idFilm }})">Réapprovisionner</button>
+                                <button onclick="askNbExemplaire({{ film.idFilm }})">Réapprovisionner</button>
                             </div>
                         </li>
                     {% endfor %}
@@ -23,13 +24,15 @@
             </ul>
         </div>
     {% endblock %}
-    {% block javascripts %}
 
+
+    {% block javascripts %}
+        {# Ajout d'exemplaire en javascript #}
         <script type="text/javascript">
-            function toto(id)
+            function askNbExemplaire(id)
             {
-                var toto = prompt('Combien d\'exemplaires voulez vous ajouter ?' + toto);
-                window.location.replace("http://localhost:8000/indexAdmin/"+id+"/" + toto);
+                var nbExemplaires = prompt('Combien d\'exemplaires voulez vous ajouter ?' + nbExemplaires);
+                window.location.replace("http://localhost:8000/indexAdmin/"+id+"/" + nbExemplaires);
             }
         </script>
     {% endblock %}

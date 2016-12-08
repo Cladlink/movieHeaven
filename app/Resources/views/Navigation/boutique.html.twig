@@ -1,68 +1,72 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2>Boutique</h2>
-                <label>
-                    <select name="trierPar" id="trierPar">
-                        <option value="tous" selected> Tous</option>
-                    {% for tf in typeFilm %}
-                        <option id="{{ tf.libelleTypeFilm }}" value="{{ tf.libelleTypeFilm }}">
-                            {{ tf.libelleTypeFilm }}
-                        </option>
-                    {% endfor %}
-                    </select>
-                </label>
-                <ul class="listefilm">
-                    {% for film in films if films is not empty %}
-                        <li id="{{ film.typeFilmId.libelleTypeFilm }}" class="listeATrier">
-                            <div>
-                                <a href="{{ path('ficheFilm', {'idFilm': film.idFilm}) }}">
-                                    <img width="90px" src="{{asset('images/uploaded/' ~ film.imageFilm)}}"/>
-                                </a>
-                            </div>
-                            <div class="infoboutique">
-                                <h2 class="titre">{{film.titreFilm}}</h2>
-                                <div class="prix">Prix : {{film.prixFilm}}</div>
-                                {% if film.quantiteFilm > 0 %}
-                                <div class="quantite">quantité dispo :{{film.quantiteFilm}}</div>
-                                <a href="{{ path('ajouterPanier', {'film': film.idFilm}) }}">
-                                    <img width="50px" src="{{ asset('images/addCart.png') }}" alt="Ajouter">
-                                </a>
-                                {% else %}
-                                    RUPTURE DE STOCK
-                                {% endif %}
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <br>
-                {% if erreur is defined and erreur != false %}
-                    <script type="text/javascript">
-                        alert("{{ erreur }}");
-                    </script>
-                {% endif %}
+
+
+    {% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Boutique</h2>
+                    <label>
+                        <select name="trierPar" id="trierPar">
+                            <option value="tous" selected> Tous</option>
+                        {% for tf in typeFilm %}
+                            <option id="{{ tf.libelleTypeFilm }}" value="{{ tf.libelleTypeFilm }}">
+                                {{ tf.libelleTypeFilm }}
+                            </option>
+                        {% endfor %}
+                        </select>
+                    </label>
+                    <ul class="listefilm">
+                        {% for film in films if films is not empty %}
+                            <li id="{{ film.typeFilmId.libelleTypeFilm }}" class="listeATrier">
+                                <div>
+                                    <a href="{{ path('ficheFilm', {'idFilm': film.idFilm}) }}">
+                                        <img width="90px" src="{{asset('images/uploaded/' ~ film.imageFilm)}}"/>
+                                    </a>
+                                </div>
+                                <div class="infoboutique">
+                                    <h2 class="titre">{{film.titreFilm}}</h2>
+                                    <div class="prix">Prix : {{film.prixFilm}}</div>
+                                    {% if film.quantiteFilm > 0 %}
+                                    <div class="quantite">quantité dispo :{{film.quantiteFilm}}</div>
+                                    <a href="{{ path('ajouterPanier', {'film': film.idFilm}) }}">
+                                        <img width="50px" src="{{ asset('images/addCart.png') }}" alt="Ajouter">
+                                    </a>
+                                    {% else %}
+                                        RUPTURE DE STOCK
+                                    {% endif %}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <br>
+                    {% if erreur is defined and erreur != false %}
+                        <script type="text/javascript">
+                            alert("{{ erreur }}");
+                        </script>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        $('select[name="trierPar"]').change(function()
-    {
-        var id = $(this).val();
-        $('li#Action').hide();
-        $('li#Science-fiction').hide();
-        $('li#Fantastique').hide();
-        $('li#' +id).show();
-        if (id == 'tous')
+    {% endblock %}
+
+{#petit script "maison" pour trier dynamiquement les films par type#}
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            $('select[name="trierPar"]').change(function()
         {
-            $('li#Action').show();
-            $('li#Science-fiction').show();
-            $('li#Fantastique').show();
-        }
-    });
-    </script>
-{% endblock %}
+            var id = $(this).val();
+            $('li#Action').hide();
+            $('li#Science-fiction').hide();
+            $('li#Fantastique').hide();
+            $('li#' +id).show();
+            if (id == 'tous')
+            {
+                $('li#Action').show();
+                $('li#Science-fiction').show();
+                $('li#Fantastique').show();
+            }
+        });
+        </script>
+    {% endblock %}

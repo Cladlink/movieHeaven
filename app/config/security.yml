@@ -2,11 +2,15 @@
 # http://symfony.com/doc/current/book/security.html
 security:
     access_denied_url: 'home'
+
+    #Choix du mode d'encryptage
+
     encoders:
         AppBundle\Entity\Utilisateur: bcrypt
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
+    #defini l'id des comptes comme étant le mot de passe
         our_users:
             entity: { class: AppBundle\entity\Utilisateur, property: emailUtilisateur}
 
@@ -18,19 +22,18 @@ security:
 
         main:
             anonymous: ~
+            #service utilisé pour authentifier l'utilisateur
             guard:
                 authenticators:
                     - app.security.login_form_authenticator
+            # définis la route à utiliser en cas de logoout (traitement automatique
             logout:
                 path: /Utilisateur/logout
             # activate different ways to authenticate
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-
+#
+#MIDDLEWARES
+#
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/boutique, roles: ROLE_USER }
@@ -39,3 +42,4 @@ security:
         - { path: ^/commande/validerCommande, roles: ROLE_ADMIN }
         - { path: ^/commande/ficheCommande, roles: [ROLE_ADMIN, ROLE_USER] }
         - { path: ^/commande/afficherCommandes, roles: ROLE_USER }
+        - { path: ^indexAdmin, roles: ROLE_ADMIN }

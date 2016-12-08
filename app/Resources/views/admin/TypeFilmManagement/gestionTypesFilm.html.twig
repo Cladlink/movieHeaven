@@ -10,15 +10,13 @@
                     <tr>
                         <th>Types</th>
                         <th>Modifier</th>
-                        <th>Supprimer</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for type in types if types is not empty %}
-
                         <tr>
                             <td>{{type.libelleTypeFilm}}</td>
-                            <td><a href="#">modifier</a></td>
+                            <td><a href="{{ path('editTypeMovie', {'id': type.idTypeFilm}) }}">modifier</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
