@@ -26,9 +26,9 @@
                                 </div>
                                 <div class="infoboutique">
                                     <h2 class="titre">{{film.titreFilm}}</h2>
-                                    <div class="prix">Prix : {{film.prixFilm}}</div>
+                                    <div class="prix">Prix : {{film.prixFilm}}€</div>
                                     {% if film.quantiteFilm > 0 %}
-                                    <div class="quantite">quantité dispo :{{film.quantiteFilm}}</div>
+                                    <div class="quantite">Quantité dispo : {{film.quantiteFilm}}</div>
                                     {% if is_granted("ROLE_USER") %}
                                     <a href="{{ path('ajouterPanier', {'film': film.idFilm}) }}">
                                         <img width="50px" src="{{ asset('images/addCart.png') }}" alt="Ajouter">

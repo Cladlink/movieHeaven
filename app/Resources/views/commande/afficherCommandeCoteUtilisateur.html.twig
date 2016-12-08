@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h2>Commandes</h2>
-                    <table cellspacing="60">
+                    <table cellspacing="60" class="gestionCommandes">
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -20,7 +20,7 @@
 
                                 <tr>
                                     <td>{{commande.dateCommande|date('Y-m-d')}}</td>
-                                    <td>{{commande.prixCommande}}</td>
+                                    <td>{{commande.prixCommande}}€</td>
                                     <td>{{commande.etatId.libelleEtatCommande}}</td>
                                     <td><a href="{{ path('ficheCommande', {'commande': commande.idCommande}) }}">Détails de la commande</a></td>
                                 </tr>
