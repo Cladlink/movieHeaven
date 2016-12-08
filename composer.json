@@ -29,7 +29,8 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "doctrine/doctrine-migrations-bundle": "^1.2",
-        "captcha-com/symfony-captcha-bundle": "^4.1"
+        "captcha-com/symfony-captcha-bundle": "^4.1",
+        "symfony/finder": "^3.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

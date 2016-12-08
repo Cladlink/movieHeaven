@@ -17,6 +17,8 @@ use AppBundle\Form\CommentForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/boutique")
@@ -28,6 +30,27 @@ class NavigationController extends Controller
      */
      public function ficheFilmAction(Request $request, Film $idFilm)
      {
+         if($this->getUser() == null)
+         {
+             $response = new Response();
+             $request = Request::createFromGlobals();
+             if($request->cookies->get('DerniersFilmsConsultes'))
+             {
+                 $cook = $request->cookies->get('DerniersFilmsConsultes');
+                 $cook['value'] = 2;
+             }
+             else $cook['value'] = 1;
+             $cookie_info = array(
+                 'name'  => 'DerniersFilmsConsultes',
+                 'value' => $cook['value']);
+
+             $cookie = new Cookie($cookie_info['name'], $cookie_info['value']);
+
+             $response->headers->setCookie($cookie);
+             $response->send();
+         }
+
+
          $em = $this->getDoctrine()->getManager();
 
          $form = $this->createForm(CommentForm::class);
@@ -71,6 +94,7 @@ class NavigationController extends Controller
      */
     public function afficherBoutique()
     {
+
         $em = $this->getDoctrine()->getManager();
         $films = $em->getRepository('AppBundle:Film')->findAll();
         $typeFilm = $em->getRepository('AppBundle:TypeFilm')->findAll();

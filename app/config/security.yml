@@ -36,7 +36,6 @@ security:
 #
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/boutique, roles: ROLE_USER }
         - { path: ^/accountManager/edit, roles: ROLE_USER }
         - { path: ^/commande/gestionCommande, roles: ROLE_ADMIN }
         - { path: ^/commande/validerCommande, roles: ROLE_ADMIN }
