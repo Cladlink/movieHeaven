@@ -24,21 +24,24 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
-        /*
-         * 1 - Je regarde si le cookie existe
-            2 - Si oui je récupère son contenu
-               2.1 - J'ajoute à la variable le nouvel identifiant
-               2.2 - Je recré le même cookie avec la nouvelle variable pour écraser l'ancien
-            3 - Sinon
-               3.1 - Je créé le cookie avec le premier identifiant
-               3.2 - Je renviens au 2)*/
-
+        $em = $this->getDoctrine()->getManager();
         $response = new Response();
         $request = Request::createFromGlobals();
-        $tab = 0;
-        if($request->cookies->get('DerniersFilmsConsultes'))
+        $derniersConsultes = array();
+        if($request->cookies->get('DerniersFilmsConsultes')!= null)
         {
-            $tab = $request->cookies->get('DerniersFilmsConsultes')+1;
+            $tab = $request->cookies->get('DerniersFilmsConsultes');
+            $tabDecoupe = explode(" ", $tab);
+            $i = 0;
+            while($i<5 && $tabDecoupe[$i] != "-1")
+            {
+                $derniersConsultes[$i] = $em->getRepository('AppBundle:Film')->findOneBy(['idFilm' => $tabDecoupe[$i]]);
+                $i++;
+            }
+        }
+        else
+        {
+            $tab = "-1 -1 -1 -1 -1";
         }
         $cookie_info = array(
             'name'  => 'DerniersFilmsConsultes',
@@ -53,7 +56,7 @@ class IndexController extends Controller
         if ($utilisateur!= null &&
             $utilisateur->getRoles() == ['ROLE_ADMIN'])
             return $this->indexAdminAction();
-        return $this->render('index.html.twig',array(),$response);
+        return $this->render('index.html.twig', ['films' => $derniersConsultes]);
     }
 
     /**

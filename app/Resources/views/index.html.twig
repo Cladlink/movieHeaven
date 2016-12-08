@@ -5,6 +5,26 @@
                 <h2>Nouveautés</h2>
             {% else %}
                 <h2>Produits recemment cusultés</h2>
+                <ul class="listefilm">
+                    {% for film in films if films is not empty %}
+                        <li id="{{ film.typeFilmId.libelleTypeFilm }}" class="listeATrier">
+                            <div>
+                                <a href="{{ path('ficheFilm', {'idFilm': film.idFilm}) }}">
+                                    <img width="90px" src="{{asset('images/uploaded/' ~ film.imageFilm)}}"/>
+                                </a>
+                            </div>
+                            <div class="infoboutique">
+                                <h2 class="titre">{{film.titreFilm}}</h2>
+                                <div class="prix">Prix : {{film.prixFilm}}</div>
+                                {% if film.quantiteFilm > 0 %}
+                                    <div class="quantite">quantité dispo :{{film.quantiteFilm}}</div>
+                                {% else %}
+                                    RUPTURE DE STOCK
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
             {% endif %}
         </div>
     {% endblock %}
