@@ -29,9 +29,11 @@
                                     <div class="prix">Prix : {{film.prixFilm}}</div>
                                     {% if film.quantiteFilm > 0 %}
                                     <div class="quantite">quantité dispo :{{film.quantiteFilm}}</div>
+                                    {% if is_granted("ROLE_USER") %}
                                     <a href="{{ path('ajouterPanier', {'film': film.idFilm}) }}">
                                         <img width="50px" src="{{ asset('images/addCart.png') }}" alt="Ajouter">
                                     </a>
+                                    {% endif %}
                                     {% else %}
                                         RUPTURE DE STOCK
                                     {% endif %}
