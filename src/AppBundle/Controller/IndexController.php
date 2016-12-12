@@ -86,7 +86,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/indexUser", name="indexAddAdmin")
+     * @Route("/indexUser", name="indexddAdmin")
      */
     public function indexUserAction()
     {
