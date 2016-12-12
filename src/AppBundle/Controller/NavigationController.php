@@ -103,13 +103,6 @@ class NavigationController extends Controller
              'commentaires' => $commentaires
 
        ));
-         /*$em = $this->getDoctrine()->getManager();
-         $commentaires = $em->getRepository('AppBundle:CommentaireFilm')
-             ->findOneBy(['filmId' => $film]);
-         $films = $em->getRepository('AppBundle:Film') ->find($film);
-             return $this->render(':Boutique:ficheFilm.html.twig', (
-             ['films' => $films,
-                 'CommentFilm' => $commentaires]));*/
      }
 
     /**
