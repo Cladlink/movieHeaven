@@ -82,30 +82,4 @@ class IndexController extends Controller
             $em->flush();
         return $this->indexAdminAction();
     }
-
-
-    /*public function cookieAction($flag)
-    {
-        $response = new Response();
-        $request = Request::createFromGlobals();
-
-
-        $cookie_info = array(
-            'name'  => 'DerniersFilmsConsultes',
-            'value' => $flag);
-
-        $cookie = new Cookie($cookie_info['name'], $cookie_info['value']);
-
-        //on gere si le cookie existe :
-        if( $request->cookies->get('DerniersFilmsConsultes') )
-        {
-
-            //var_dump($response->headers->clearCookie('DerniersFilmsConsultes'));
-        }
-
-        $response->headers->setCookie($cookie);
-        $response->send();
-        return $this->render(':Navigation:boutique.html.twig', array(),$response);
-
-    }*/
 }
