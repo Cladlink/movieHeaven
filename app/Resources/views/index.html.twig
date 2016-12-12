@@ -5,6 +5,7 @@
                 <h2>Nouveautés</h2>
             {% else %}
                 <h2>Produits recemment cusultés</h2>
+            {% endif %}
                 <ul class="listefilm">
                     {% for film in films if films is not empty %}
                         <li id="{{ film.typeFilmId.libelleTypeFilm }}" class="listeATrier">
@@ -25,6 +26,5 @@
                         </li>
                     {% endfor %}
                 </ul>
-            {% endif %}
         </div>
     {% endblock %}

@@ -24,6 +24,13 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
+        $utilisateur = $this->getUser();
+        if ($utilisateur!= null &&
+            $utilisateur->getRoles() == ['ROLE_ADMIN'])
+            return $this->indexAdminAction();
+        elseif($utilisateur!= null &&
+            $utilisateur->getRoles() == ['ROLE_USER'])
+            return $this->indexUserAction();
         $em = $this->getDoctrine()->getManager();
         $response = new Response();
         $request = Request::createFromGlobals();
@@ -52,10 +59,7 @@ class IndexController extends Controller
         $response->headers->setCookie($cookie);
         $response->send();
 
-        $utilisateur = $this->getUser();
-        if ($utilisateur!= null &&
-            $utilisateur->getRoles() == ['ROLE_ADMIN'])
-            return $this->indexAdminAction();
+
         return $this->render('index.html.twig', ['films' => $derniersConsultes]);
     }
 
@@ -67,19 +71,54 @@ class IndexController extends Controller
         $em = $this->getDoctrine()->getManager();
         $films = $em->getRepository('AppBundle:Film')->findBy( array('quantiteFilm' => 0));
 
-        return $this->render('indexAdmin.html.twig',
-            array('films' => $films));
+        return $this->render('indexAdmin.html.twig', array('films' => $films));
     }
     /**
      * @Route("/indexAdmin/{id}/{quantiteFilm}", name="indexAddAdmin")
      */
     public function indexAdminAddAction(Film $film, $quantiteFilm)
     {
-            //todo modifier le nbQuantite
-            $em = $this->getDoctrine()->getManager();
-            $film->setQuantiteFilm($quantiteFilm);
-            $em->persist($film);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $film->setQuantiteFilm($quantiteFilm);
+        $em->persist($film);
+        $em->flush();
         return $this->indexAdminAction();
     }
+
+    /**
+     * @Route("/indexUser", name="indexAddAdmin")
+     */
+    public function indexUserAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $films = $em->getRepository('AppBundle:Film')->findby(array(), array('idFilm' => 'DESC'), 5);
+        $typeFilm = $em->getRepository('AppBundle:TypeFilm')->findAll();
+        return $this->render('index.html.twig', array('films' => $films, 'typeFilm' => $typeFilm));
+    }
+
+
+    /*public function cookieAction($flag)
+    {
+        $response = new Response();
+        $request = Request::createFromGlobals();
+
+
+        $cookie_info = array(
+            'name'  => 'DerniersFilmsConsultes',
+            'value' => $flag);
+
+        $cookie = new Cookie($cookie_info['name'], $cookie_info['value']);
+
+        //on gere si le cookie existe :
+        if( $request->cookies->get('DerniersFilmsConsultes') )
+        {
+
+            //var_dump($response->headers->clearCookie('DerniersFilmsConsultes'));
+        }
+
+        $response->headers->setCookie($cookie);
+        $response->send();
+        return $this->render(':Navigation:boutique.html.twig', array(),$response);
+
+    }*/
 }
