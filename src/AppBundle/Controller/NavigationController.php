@@ -34,48 +34,33 @@ class NavigationController extends Controller
          {
              $response = new Response();
              $request = Request::createFromGlobals();
-             $tab = $request->cookies->get('DerniersFilmsConsultes');
-             $tabDecoupe = explode(" ", $tab);
-             $isPresent = false;
-             /*for($i=0; $i<5; $i++)
+             if($request->cookies->get('DerniersFilmsConsultes')!= null)
              {
-                 if($tabDecoupe[$i] == $idFilm->getIdFilm())
-                 {
-                     $isPresent = true;
-                 }
-             }
+                 $tab = $request->cookies->get('DerniersFilmsConsultes');
+                 $tabDecoupe = explode(" ", $tab);
+                 $isPresent = false;
+                 for ($i = 0; $i < 5; $i++)
+                     if ($tabDecoupe[$i] == $idFilm->getIdFilm()) {
+                         $isPresent = true;
+                         $place = $i - 1;
+                     }
+                 if (!$isPresent)
+                     $place = 3;
 
-             if(!$isPresent)
-             {
-                 for($i=3; $i>=0; $i--)
-                     if($tabDecoupe[$i] != "-1")
-                         $tabDecoupe[$i+1] = $tabDecoupe[$i];
+                 for ($i = $place; $i >= 0; $i--)
+                     if ($tabDecoupe[$i] != "-1")
+                         $tabDecoupe[$i + 1] = $tabDecoupe[$i];
 
                  $tab = $idFilm->getIdFilm() . " "
                      . $tabDecoupe[1] . " "
                      . $tabDecoupe[2] . " "
                      . $tabDecoupe[3] . " "
                      . $tabDecoupe[4];
-             }*/
-
-             for($i=0; $i<5; $i++)
-                 if($tabDecoupe[$i] == $idFilm->getIdFilm())
-                 {
-                     $isPresent = true;
-                     $place = $i-1;
-                 }
-             if(!$isPresent)
-                 $place = 3;
-
-             for($i=$place; $i>=0; $i--)
-                 if($tabDecoupe[$i] != "-1")
-                     $tabDecoupe[$i+1] = $tabDecoupe[$i];
-
-             $tab = $idFilm->getIdFilm() . " "
-                 . $tabDecoupe[1] . " "
-                 . $tabDecoupe[2] . " "
-                 . $tabDecoupe[3] . " "
-                 . $tabDecoupe[4];
+             }
+             else
+             {
+                 $tab = $idFilm->getIdFilm()." -1 -1 -1 -1";
+             }
 
 
              $cookie_info = array(
